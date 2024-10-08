@@ -6,6 +6,36 @@
 
 using namespace std;
 
+void probe(int *lo_orderdate, int *lo_partkey, int *lo_suppkey,
+                         int *lo_revenue, int lo_len, int *ht_s, int s_len,
+                         int *ht_p, int p_len, int *ht_d, int d_len, int *res,
+                         sycl::id<1> idx) {
+  bool sf = true;
+  int brand;
+  int year;
+  
+  
+  probe_keys_element(lo_suppkey[idx], sf, s_len, ht_s, s_len, 0);
+  probe_keys_vals_element(lo_orderdate[idx], year, sf, d_len, ht_d, d_len, 19920101);
+  probe_keys_vals_element(lo_partkey[idx], brand, sf, p_len, ht_p, p_len, 0);
+  /*
+  probe_keys_element(lo_suppkey[idx], sf, s_len, ht_s, s_len, 0);
+  probe_keys_vals_element(lo_partkey[idx], brand, sf, p_len, ht_p, p_len, 0);
+  probe_keys_vals_element(lo_orderdate[idx], year, sf, d_len, ht_d, d_len, 19920101);
+  */
+  if (sf) {
+    int hash = (brand * 7 + (year - 1992)) % ((1998 - 1992 + 1) * (5 * 5 * 40));
+    res[hash * 4] = year;
+    res[hash * 4 + 1] = brand;
+        auto sum_obj =
+            sycl::atomic_ref<unsigned long long, sycl::memory_order::relaxed,
+                             sycl::memory_scope::work_group,
+                             sycl::access::address_space::global_space>(
+                *reinterpret_cast<unsigned long long *>(&res[hash * 4 + 2]));
+        sum_obj.fetch_add((unsigned long long)(lo_revenue[idx]));
+  }
+}
+
 template <int BLOCK_THREADS, int ITEMS_PER_THREAD>
 SYCL_EXTERNAL void probe(int *lo_orderdate, int *lo_partkey, int *lo_suppkey,
                          int *lo_revenue, int lo_len, int *ht_s, int s_len,
@@ -159,9 +189,10 @@ int main(int argc, char **argv) {
   int num_partitions = 1;
   int num_gpus = 1;
   int repetitions = 10;
+  bool tiles = 0;
 
   int c;
-  while ((c = getopt(argc, argv, "p:g:r:")) != -1) {
+  while ((c = getopt(argc, argv, "p:g:r:t:")) != -1) {
     switch (c) {
     case 'p':
       num_partitions = atoi(optarg);
@@ -171,6 +202,9 @@ int main(int argc, char **argv) {
       break;
     case 'r':
       repetitions = atoi(optarg);
+      break;
+    case 't':
+      tiles = atoi(optarg);
       break;
     default:
       abort();
@@ -283,7 +317,7 @@ int main(int argc, char **argv) {
       int build_tables_num_slots_ct8 = build_tables[1].num_slots;
       int *hash_tables_ct9 = hash_tables[2];
       int build_tables_num_slots_ct10 = build_tables[2].num_slots;
-
+      if (tiles) {
       cgh.parallel_for(
           sycl::nd_range<1>(gws, lws), [=](sycl::nd_item<1> item_ct1) {
             probe<N_BLOCK_THREADS, N_ITEMS_PER_THREAD>(
@@ -292,6 +326,14 @@ int main(int argc, char **argv) {
                 hash_tables_ct7, build_tables_num_slots_ct8, hash_tables_ct9,
                 build_tables_num_slots_ct10, res, item_ct1);
           });
+      } else {
+      cgh.parallel_for(partition_len, [=](sycl::id<1> idx) {
+            probe(probe_data_ct0, probe_data_ct1, probe_data_ct2, probe_data_ct3,
+                  partition_len, hash_tables_ct5, build_tables_num_slots_ct6,
+                  hash_tables_ct7, build_tables_num_slots_ct8, hash_tables_ct9,
+                  build_tables_num_slots_ct10, res, idx);
+          });
+      }
     });
   };
 

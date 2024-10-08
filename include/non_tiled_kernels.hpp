@@ -1,6 +1,6 @@
 #include <sycl/sycl.hpp>
 
-template <typename T>
+template <typename T = uint64_t>
 inline T HASH (T X, T Y, T Z) {
   return ((X - Z) % Y);
 }
@@ -113,6 +113,12 @@ constexpr logical_op get_logical_op(OperatorType op) {
 }
 
 template <typename T>
+void selection_element(bool &sf, T col, logical_op logic,
+                       comp_op comp, int ker_ref_value) {
+  sf = logical(logic, sf, compare<int>(comp, col, ker_ref_value));
+}
+
+template <typename T>
 sycl::event selection_kernel(sycl::queue& q, T *col, bool* sf,
                              int col_len, OperatorType ker_parent_op,
                              OperatorType ker_expr_op, int ker_ref_value) {
@@ -138,6 +144,13 @@ sycl::event selection_kernel(sycl::queue& q, sycl::buffer<T> col_b, sycl::buffer
   });
 }
 
+void build_keys_element(int keys, bool sf, int num_entries,
+                        int* ht, int ht_len, int key_min) {
+  if (sf) {
+    ht[HASH<uint64_t>(keys, ht_len, key_min)] = 1;
+  }
+}
+
 sycl::event build_keys_only(sycl::queue& q, int *keys, bool* sf, int num_entries,
                             int *ht, int ht_len, int key_min) {
   return q.parallel_for(num_entries, [=](sycl::id<1> idx) {
@@ -159,6 +172,15 @@ sycl::event build_keys_only(sycl::queue& q, sycl::buffer<int> keys_b, sycl::buff
       }
     });
   });
+}
+
+void build_keys_vals_element(int keys, int vals, bool sf, int num_entries,
+                             int* ht, int ht_len, int key_min) {
+  if (sf) {
+    int hash = HASH<uint64_t>(keys, ht_len, key_min);
+    ht[hash << 1] = 1;
+    ht[(hash << 1) + 1] = vals;
+  }
 }
 
 sycl::event build_keys_vals(sycl::queue& q, int *keys, int *vals, bool* sf, int num_entries,
@@ -189,6 +211,13 @@ sycl::event build_keys_vals(sycl::queue& q, sycl::buffer<int> keys_b, sycl::buff
   });
 }
 
+void probe_keys_element(int keys, bool& sf, int num_entries,
+                        int* ht, int ht_len, int key_min) {
+  if (sf) {
+    sf = ht[HASH<uint64_t>(keys, ht_len, key_min)];
+  }
+}
+
 sycl::event probe_keys_only(sycl::queue& q, int *keys, bool* sf, int num_entries,
                             int *ht, int ht_len, int key_min) {
   return q.parallel_for(num_entries, [=](sycl::id<1> idx) {
@@ -210,6 +239,20 @@ sycl::event probe_keys_only(sycl::queue& q, sycl::buffer<int> keys_b, sycl::buff
       }
     });
   });
+}
+
+void probe_keys_vals_element(int keys, int& join_vals, bool& sf, int num_entries,
+                             int* ht, int ht_len, int key_min) {
+  if (sf) {
+    int hash = HASH<uint64_t>(keys, ht_len, key_min);
+    uint64_t slot = *reinterpret_cast<uint64_t *>(&ht[hash << 1]);
+    if (slot) {
+      join_vals = (slot >> 32);
+    }
+    else {
+      sf = false;
+    }
+  }
 }
 
 sycl::event probe_keys_vals(sycl::queue& q, int *keys, int *join_vals, bool* sf, int num_entries,

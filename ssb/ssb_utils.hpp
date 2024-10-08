@@ -9,7 +9,7 @@ using namespace std;
 
 #define SF 20
 
-#define BASE_PATH "test/ssb/data/"
+#define BASE_PATH "/data/ssd/mnt/ivan/db_ops/ock/target8/build_client/run_with_acpp/sycldb-1.0/ssb/data/"
 
 #if SF == 1
 #define DATA_DIR BASE_PATH "s1_columnar/"

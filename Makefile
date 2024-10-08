@@ -10,7 +10,7 @@ ACPP_FLAGS := --acpp-targets="generic" -DCOMPILER_IS_ACPP=1 -dc
 # make PATH_TO_LLVM=/home/ivan/llvm/build/install COMPILER=clang++ join
 PATH_TO_LLVM := /usr
 
-CXX := icpx # default compiler
+CXX := clang++ # default compiler
 CXXFLAGS := $(SYCLONDEVICE)
 
 ifeq ($(COMPILER),clang++)

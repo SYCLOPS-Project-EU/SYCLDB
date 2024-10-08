@@ -1,0 +1,2660 @@
+Tiles? 1
+Query: q11
+Build Size: 0 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 155.661 ms
+Probe on GPU 0 took: 0.212646 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe data transfer on GPU 0 took: 51.1675 ms
+Probe on GPU 0 took: 0.191162 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe data transfer on GPU 0 took: 56.5485 ms
+Probe on GPU 0 took: 0.2052 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe data transfer on GPU 0 took: 57.4889 ms
+Probe on GPU 0 took: 0.134277 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe data transfer on GPU 0 took: 55.4695 ms
+Probe on GPU 0 took: 0.092285 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe data transfer on GPU 0 took: 55.49 ms
+Probe on GPU 0 took: 0.183594 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe data transfer on GPU 0 took: 55.4956 ms
+Probe on GPU 0 took: 0.209472 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe data transfer on GPU 0 took: 55.5122 ms
+Probe on GPU 0 took: 0.195556 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe data transfer on GPU 0 took: 55.4868 ms
+Probe on GPU 0 took: 0.18042 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe data transfer on GPU 0 took: 55.4622 ms
+Probe on GPU 0 took: 0.104981 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Cold run probe transfers time: 155.661 ms
+Cold run probe kernels time: 0.212646 ms
+Cold run total (device alloc + transfer + kernels) time: 686 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 55.3468 ms (+-2.92685%)
+Hot runs: average probe kernels time (9 runs): 0.166327 ms (+-25.0415%)
+Hot runs: average total (transfer + kernels) time (9 runs): 186.333 ms (+-0.715564%)
+Query: q12
+Build Size: 0 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 156.55 ms
+Probe on GPU 0 took: 0.219482 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe data transfer on GPU 0 took: 58.2476 ms
+Probe on GPU 0 took: 0.159668 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe data transfer on GPU 0 took: 55.6111 ms
+Probe on GPU 0 took: 0.092163 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe data transfer on GPU 0 took: 58.501 ms
+Probe on GPU 0 took: 0.143554 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe data transfer on GPU 0 took: 59.5278 ms
+Probe on GPU 0 took: 0.155762 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe data transfer on GPU 0 took: 59.5488 ms
+Probe on GPU 0 took: 0.178466 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe data transfer on GPU 0 took: 59.5701 ms
+Probe on GPU 0 took: 0.149659 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe data transfer on GPU 0 took: 59.729 ms
+Probe on GPU 0 took: 0.141357 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe data transfer on GPU 0 took: 59.6333 ms
+Probe on GPU 0 took: 0.145752 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe data transfer on GPU 0 took: 56.6062 ms
+Probe on GPU 0 took: 0.148925 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Cold run probe transfers time: 156.55 ms
+Cold run probe kernels time: 0.219482 ms
+Cold run total (device alloc + transfer + kernels) time: 690 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 58.5528 ms (+-2.41979%)
+Hot runs: average probe kernels time (9 runs): 0.146145 ms (+-14.9285%)
+Hot runs: average total (transfer + kernels) time (9 runs): 189.667 ms (+-0.608805%)
+Query: q13
+Build Size: 0 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 156.652 ms
+Probe on GPU 0 took: 0.208862 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe data transfer on GPU 0 took: 60.3636 ms
+Probe on GPU 0 took: 0.147217 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe data transfer on GPU 0 took: 56.297 ms
+Probe on GPU 0 took: 0.098511 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe data transfer on GPU 0 took: 56.314 ms
+Probe on GPU 0 took: 0.148559 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe data transfer on GPU 0 took: 57.3586 ms
+Probe on GPU 0 took: 0.162231 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe data transfer on GPU 0 took: 55.2823 ms
+Probe on GPU 0 took: 0.15918 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe data transfer on GPU 0 took: 57.3677 ms
+Probe on GPU 0 took: 0.100342 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe data transfer on GPU 0 took: 56.511 ms
+Probe on GPU 0 took: 0.144043 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe data transfer on GPU 0 took: 57.4373 ms
+Probe on GPU 0 took: 0.14502 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe data transfer on GPU 0 took: 54.2344 ms
+Probe on GPU 0 took: 0.144043 ms
+Res Count: 1
+Total Revenue: 518906340381
+Cold run probe transfers time: 156.652 ms
+Cold run probe kernels time: 0.208862 ms
+Cold run total (device alloc + transfer + kernels) time: 171 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 56.7962 ms (+-2.82675%)
+Hot runs: average probe kernels time (9 runs): 0.138794 ms (+-15.7968%)
+Hot runs: average total (transfer + kernels) time (9 runs): 188.778 ms (+-0.926899%)
+Tiles? 1
+Query: q21
+Build Size: 7 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 155.756 ms
+Probe on GPU 0 took: 5.52112 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe data transfer on GPU 0 took: 136.964 ms
+Probe on GPU 0 took: 5.47815 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe data transfer on GPU 0 took: 99.1614 ms
+Probe on GPU 0 took: 5.46936 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe data transfer on GPU 0 took: 60.4081 ms
+Probe on GPU 0 took: 5.45642 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe data transfer on GPU 0 took: 136.754 ms
+Probe on GPU 0 took: 5.48364 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe data transfer on GPU 0 took: 59.4666 ms
+Probe on GPU 0 took: 5.48511 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe data transfer on GPU 0 took: 175.31 ms
+Probe on GPU 0 took: 5.49023 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe data transfer on GPU 0 took: 137.806 ms
+Probe on GPU 0 took: 5.50073 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe data transfer on GPU 0 took: 99.0513 ms
+Probe on GPU 0 took: 5.49023 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe data transfer on GPU 0 took: 175.397 ms
+Probe on GPU 0 took: 5.47974 ms
+Res Count: 280
+Total Revenue: 46352924331
+Cold run probe transfers time: 155.756 ms
+Cold run probe kernels time: 5.52112 ms
+Cold run total (device alloc + transfer + kernels) time: 425 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 120.035 ms (+-34.1263%)
+Hot runs: average probe kernels time (9 runs): 5.48151 ms (+-0.22183%)
+Hot runs: average total (transfer + kernels) time (9 runs): 195 ms (+-0%)
+Query: q22
+Build Size: 7 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 155.816 ms
+Probe on GPU 0 took: 5.68127 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe data transfer on GPU 0 took: 183.576 ms
+Probe on GPU 0 took: 5.37354 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe data transfer on GPU 0 took: 59.6079 ms
+Probe on GPU 0 took: 5.36243 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe data transfer on GPU 0 took: 138.198 ms
+Probe on GPU 0 took: 5.38049 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe data transfer on GPU 0 took: 60.7186 ms
+Probe on GPU 0 took: 5.36377 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe data transfer on GPU 0 took: 138.19 ms
+Probe on GPU 0 took: 5.38013 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe data transfer on GPU 0 took: 60.6404 ms
+Probe on GPU 0 took: 5.36182 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe data transfer on GPU 0 took: 138.195 ms
+Probe on GPU 0 took: 5.38574 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe data transfer on GPU 0 took: 175.806 ms
+Probe on GPU 0 took: 5.36914 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe data transfer on GPU 0 took: 59.4763 ms
+Probe on GPU 0 took: 5.36987 ms
+Res Count: 56
+Total Revenue: 13085994263
+Cold run probe transfers time: 155.816 ms
+Cold run probe kernels time: 5.68127 ms
+Cold run total (device alloc + transfer + kernels) time: 176 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 112.712 ms (+-43.8845%)
+Hot runs: average probe kernels time (9 runs): 5.37188 ms (+-0.15263%)
+Hot runs: average total (transfer + kernels) time (9 runs): 195.889 ms (+-1.28346%)
+Query: q23
+Build Size: 7 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 155.889 ms
+Probe on GPU 0 took: 5.33008 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe data transfer on GPU 0 took: 174.459 ms
+Probe on GPU 0 took: 5.23962 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe data transfer on GPU 0 took: 59.3469 ms
+Probe on GPU 0 took: 5.27307 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe data transfer on GPU 0 took: 136.745 ms
+Probe on GPU 0 took: 5.26746 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe data transfer on GPU 0 took: 59.468 ms
+Probe on GPU 0 took: 5.25928 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe data transfer on GPU 0 took: 98.0249 ms
+Probe on GPU 0 took: 5.21826 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe data transfer on GPU 0 took: 136.643 ms
+Probe on GPU 0 took: 5.30078 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe data transfer on GPU 0 took: 175.269 ms
+Probe on GPU 0 took: 5.28149 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe data transfer on GPU 0 took: 59.3381 ms
+Probe on GPU 0 took: 5.28589 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe data transfer on GPU 0 took: 137.786 ms
+Probe on GPU 0 took: 5.28174 ms
+Res Count: 7
+Total Revenue: 1245611327
+Cold run probe transfers time: 155.889 ms
+Cold run probe kernels time: 5.33008 ms
+Cold run total (device alloc + transfer + kernels) time: 174 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 115.231 ms (+-39.02%)
+Hot runs: average probe kernels time (9 runs): 5.26751 ms (+-0.45388%)
+Hot runs: average total (transfer + kernels) time (9 runs): 193.222 ms (+-0.325294%)
+Query: q31
+Build Size: 4 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 156.018 ms
+Probe on GPU 0 took: 6.84729 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe data transfer on GPU 0 took: 149.713 ms
+Probe on GPU 0 took: 5.64636 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe data transfer on GPU 0 took: 137.853 ms
+Probe on GPU 0 took: 5.70581 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe data transfer on GPU 0 took: 98.8354 ms
+Probe on GPU 0 took: 5.75269 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe data transfer on GPU 0 took: 98.9856 ms
+Probe on GPU 0 took: 5.71997 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe data transfer on GPU 0 took: 98.825 ms
+Probe on GPU 0 took: 5.70996 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe data transfer on GPU 0 took: 99.8757 ms
+Probe on GPU 0 took: 6.1604 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe data transfer on GPU 0 took: 59.823 ms
+Probe on GPU 0 took: 5.69702 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe data transfer on GPU 0 took: 176.722 ms
+Probe on GPU 0 took: 5.72095 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe data transfer on GPU 0 took: 176.822 ms
+Probe on GPU 0 took: 5.75928 ms
+Res Count: 150
+Total Revenue: 335331166
+Cold run probe transfers time: 156.018 ms
+Cold run probe kernels time: 6.84729 ms
+Cold run total (device alloc + transfer + kernels) time: 175 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 121.94 ms (+-31.1415%)
+Hot runs: average probe kernels time (9 runs): 5.7636 ms (+-2.49228%)
+Hot runs: average total (transfer + kernels) time (9 runs): 197.778 ms (+-1.84283%)
+Query: q32
+Build Size: 4 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 155.755 ms
+Probe on GPU 0 took: 4.45081 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe data transfer on GPU 0 took: 189.794 ms
+Probe on GPU 0 took: 4.11585 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe data transfer on GPU 0 took: 96.0986 ms
+Probe on GPU 0 took: 4.10193 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe data transfer on GPU 0 took: 94.0802 ms
+Probe on GPU 0 took: 4.11328 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe data transfer on GPU 0 took: 170.375 ms
+Probe on GPU 0 took: 4.1676 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe data transfer on GPU 0 took: 54.4384 ms
+Probe on GPU 0 took: 4.15527 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe data transfer on GPU 0 took: 133.794 ms
+Probe on GPU 0 took: 4.16162 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe data transfer on GPU 0 took: 96.0884 ms
+Probe on GPU 0 took: 4.17139 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe data transfer on GPU 0 took: 173.529 ms
+Probe on GPU 0 took: 4.1084 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe data transfer on GPU 0 took: 56.314 ms
+Probe on GPU 0 took: 4.15967 ms
+Res Count: 600
+Total Revenue: 635420481612
+Cold run probe transfers time: 155.755 ms
+Cold run probe kernels time: 4.45081 ms
+Cold run total (device alloc + transfer + kernels) time: 174 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 118.279 ms (+-40.4555%)
+Hot runs: average probe kernels time (9 runs): 4.13944 ms (+-0.653067%)
+Hot runs: average total (transfer + kernels) time (9 runs): 191.333 ms (+-3.00744%)
+Query: q33
+Build Size: 4 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 156.135 ms
+Probe on GPU 0 took: 3.99109 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe data transfer on GPU 0 took: 73.4268 ms
+Probe on GPU 0 took: 3.56836 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe data transfer on GPU 0 took: 96.475 ms
+Probe on GPU 0 took: 3.57166 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe data transfer on GPU 0 took: 134.136 ms
+Probe on GPU 0 took: 3.57544 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe data transfer on GPU 0 took: 170.883 ms
+Probe on GPU 0 took: 3.56958 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe data transfer on GPU 0 took: 57.4601 ms
+Probe on GPU 0 took: 3.5918 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe data transfer on GPU 0 took: 54.5509 ms
+Probe on GPU 0 took: 3.48291 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe data transfer on GPU 0 took: 132.035 ms
+Probe on GPU 0 took: 3.50391 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe data transfer on GPU 0 took: 173.002 ms
+Probe on GPU 0 took: 3.57788 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe data transfer on GPU 0 took: 96.4446 ms
+Probe on GPU 0 took: 3.58423 ms
+Res Count: 24
+Total Revenue: 24594303366
+Cold run probe transfers time: 156.135 ms
+Cold run probe kernels time: 3.99109 ms
+Cold run total (device alloc + transfer + kernels) time: 171 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 109.824 ms (+-38.7303%)
+Hot runs: average probe kernels time (9 runs): 3.55842 ms (+-1.00545%)
+Hot runs: average total (transfer + kernels) time (9 runs): 191.556 ms (+-2.92334%)
+Query: q34
+Build Size: 4 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 156.968 ms
+Probe on GPU 0 took: 3.77039 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe data transfer on GPU 0 took: 139.443 ms
+Probe on GPU 0 took: 3.39978 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe data transfer on GPU 0 took: 96.6012 ms
+Probe on GPU 0 took: 3.39758 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe data transfer on GPU 0 took: 174.344 ms
+Probe on GPU 0 took: 3.39929 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe data transfer on GPU 0 took: 95.4187 ms
+Probe on GPU 0 took: 3.39709 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe data transfer on GPU 0 took: 54.3907 ms
+Probe on GPU 0 took: 3.39941 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe data transfer on GPU 0 took: 135.56 ms
+Probe on GPU 0 took: 3.39551 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe data transfer on GPU 0 took: 96.5771 ms
+Probe on GPU 0 took: 3.39551 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe data transfer on GPU 0 took: 174.336 ms
+Probe on GPU 0 took: 3.39893 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe data transfer on GPU 0 took: 95.4236 ms
+Probe on GPU 0 took: 3.39966 ms
+Res Count: 4
+Total Revenue: 314524993
+Cold run probe transfers time: 156.968 ms
+Cold run probe kernels time: 3.77039 ms
+Cold run total (device alloc + transfer + kernels) time: 173 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 118.01 ms (+-32.328%)
+Hot runs: average probe kernels time (9 runs): 3.39808 ms (+-0.0478502%)
+Hot runs: average total (transfer + kernels) time (9 runs): 191.333 ms (+-0.921865%)
+Query: q41
+Build Size: 12 MB
+Probe Size: 2744 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 156.195 ms
+Probe on GPU 0 took: 8.13855 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe data transfer on GPU 0 took: 186.268 ms
+Probe on GPU 0 took: 8.16248 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe data transfer on GPU 0 took: 108.333 ms
+Probe on GPU 0 took: 8.10986 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe data transfer on GPU 0 took: 263.555 ms
+Probe on GPU 0 took: 8.08545 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe data transfer on GPU 0 took: 186.015 ms
+Probe on GPU 0 took: 8.0896 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe data transfer on GPU 0 took: 224.602 ms
+Probe on GPU 0 took: 8.44287 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe data transfer on GPU 0 took: 108.175 ms
+Probe on GPU 0 took: 8.09131 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe data transfer on GPU 0 took: 224.576 ms
+Probe on GPU 0 took: 8.1001 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe data transfer on GPU 0 took: 108.19 ms
+Probe on GPU 0 took: 8.08765 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe data transfer on GPU 0 took: 263.473 ms
+Probe on GPU 0 took: 8.10938 ms
+Res Count: 35
+Total Revenue: 683250982
+Cold run probe transfers time: 156.195 ms
+Cold run probe kernels time: 8.13855 ms
+Cold run total (device alloc + transfer + kernels) time: 262 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 185.91 ms (+-32.6395%)
+Hot runs: average probe kernels time (9 runs): 8.14208 ms (+-1.33455%)
+Hot runs: average total (transfer + kernels) time (9 runs): 293.111 ms (+-0.107219%)
+Query: q42
+Build Size: 12 MB
+Probe Size: 2744 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 156.288 ms
+Probe on GPU 0 took: 6.81677 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe data transfer on GPU 0 took: 113.044 ms
+Probe on GPU 0 took: 6.46313 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe data transfer on GPU 0 took: 109.143 ms
+Probe on GPU 0 took: 6.46558 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe data transfer on GPU 0 took: 109.131 ms
+Probe on GPU 0 took: 6.4331 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe data transfer on GPU 0 took: 109.152 ms
+Probe on GPU 0 took: 6.46826 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe data transfer on GPU 0 took: 109.292 ms
+Probe on GPU 0 took: 6.50488 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe data transfer on GPU 0 took: 109.15 ms
+Probe on GPU 0 took: 6.52856 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe data transfer on GPU 0 took: 264.355 ms
+Probe on GPU 0 took: 6.47192 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe data transfer on GPU 0 took: 265.413 ms
+Probe on GPU 0 took: 6.47095 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe data transfer on GPU 0 took: 225.589 ms
+Probe on GPU 0 took: 6.46533 ms
+Res Count: 875
+Total Revenue: 779858557688
+Cold run probe transfers time: 156.288 ms
+Cold run probe kernels time: 6.81677 ms
+Cold run total (device alloc + transfer + kernels) time: 263 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 157.141 ms (+-43.1358%)
+Hot runs: average probe kernels time (9 runs): 6.47464 ms (+-0.395797%)
+Hot runs: average total (transfer + kernels) time (9 runs): 292.444 ms (+-0.429852%)
+Query: q43
+Build Size: 12 MB
+Probe Size: 2744 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 156.308 ms
+Probe on GPU 0 took: 5.74292 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe data transfer on GPU 0 took: 253.623 ms
+Probe on GPU 0 took: 5.67273 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe data transfer on GPU 0 took: 214.376 ms
+Probe on GPU 0 took: 5.68604 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe data transfer on GPU 0 took: 175.521 ms
+Probe on GPU 0 took: 5.69775 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe data transfer on GPU 0 took: 97.7961 ms
+Probe on GPU 0 took: 5.61963 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe data transfer on GPU 0 took: 249.046 ms
+Probe on GPU 0 took: 5.83057 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe data transfer on GPU 0 took: 162.853 ms
+Probe on GPU 0 took: 5.79004 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe data transfer on GPU 0 took: 162.908 ms
+Probe on GPU 0 took: 5.7876 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe data transfer on GPU 0 took: 162.891 ms
+Probe on GPU 0 took: 5.8103 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe data transfer on GPU 0 took: 164.021 ms
+Probe on GPU 0 took: 5.79736 ms
+Res Count: 800
+Total Revenue: 32178923638
+Cold run probe transfers time: 156.308 ms
+Cold run probe kernels time: 5.74292 ms
+Cold run total (device alloc + transfer + kernels) time: 257 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 182.559 ms (+-25.3148%)
+Hot runs: average probe kernels time (9 runs): 5.74356 ms (+-1.22843%)
+Hot runs: average total (transfer + kernels) time (9 runs): 275.778 ms (+-2.18757%)
+Tiles? 0
+Query: q11
+Build Size: 0 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 156.159 ms
+Probe on GPU 0 took: 4.13287 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe data transfer on GPU 0 took: 56.6357 ms
+Probe on GPU 0 took: 4.11292 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe data transfer on GPU 0 took: 52.277 ms
+Probe on GPU 0 took: 4.06421 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe data transfer on GPU 0 took: 54.3116 ms
+Probe on GPU 0 took: 4.1206 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe data transfer on GPU 0 took: 56.4186 ms
+Probe on GPU 0 took: 4.0614 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe data transfer on GPU 0 took: 56.5363 ms
+Probe on GPU 0 took: 4.11462 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe data transfer on GPU 0 took: 57.4747 ms
+Probe on GPU 0 took: 4.1416 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe data transfer on GPU 0 took: 57.4714 ms
+Probe on GPU 0 took: 4.07764 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe data transfer on GPU 0 took: 54.3203 ms
+Probe on GPU 0 took: 4.15454 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe data transfer on GPU 0 took: 57.4648 ms
+Probe on GPU 0 took: 4.12891 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Cold run probe transfers time: 156.159 ms
+Cold run probe kernels time: 4.13287 ms
+Cold run total (device alloc + transfer + kernels) time: 173 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 55.8789 ms (+-3.08547%)
+Hot runs: average probe kernels time (9 runs): 4.10849 ms (+-0.768319%)
+Hot runs: average total (transfer + kernels) time (9 runs): 189 ms (+-0.748261%)
+Query: q12
+Build Size: 0 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 156.334 ms
+Probe on GPU 0 took: 3.48486 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe data transfer on GPU 0 took: 64.1666 ms
+Probe on GPU 0 took: 3.52478 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe data transfer on GPU 0 took: 56.4307 ms
+Probe on GPU 0 took: 3.48364 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe data transfer on GPU 0 took: 54.3065 ms
+Probe on GPU 0 took: 3.49231 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe data transfer on GPU 0 took: 55.3542 ms
+Probe on GPU 0 took: 3.40454 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe data transfer on GPU 0 took: 55.3707 ms
+Probe on GPU 0 took: 3.45911 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe data transfer on GPU 0 took: 54.3171 ms
+Probe on GPU 0 took: 3.52271 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe data transfer on GPU 0 took: 54.3108 ms
+Probe on GPU 0 took: 3.51611 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe data transfer on GPU 0 took: 54.3113 ms
+Probe on GPU 0 took: 3.49341 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe data transfer on GPU 0 took: 54.4182 ms
+Probe on GPU 0 took: 3.36328 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Cold run probe transfers time: 156.334 ms
+Cold run probe kernels time: 3.48486 ms
+Cold run total (device alloc + transfer + kernels) time: 171 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 55.8874 ms (+-5.38399%)
+Hot runs: average probe kernels time (9 runs): 3.47332 ms (+-1.51225%)
+Hot runs: average total (transfer + kernels) time (9 runs): 187.556 ms (+-1.66931%)
+Query: q13
+Build Size: 0 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 156.294 ms
+Probe on GPU 0 took: 3.5694 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe data transfer on GPU 0 took: 65.7178 ms
+Probe on GPU 0 took: 3.48157 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe data transfer on GPU 0 took: 56.4517 ms
+Probe on GPU 0 took: 3.49963 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe data transfer on GPU 0 took: 56.4014 ms
+Probe on GPU 0 took: 3.53894 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe data transfer on GPU 0 took: 56.4131 ms
+Probe on GPU 0 took: 3.49658 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe data transfer on GPU 0 took: 57.4684 ms
+Probe on GPU 0 took: 3.54053 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe data transfer on GPU 0 took: 57.4736 ms
+Probe on GPU 0 took: 3.38037 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe data transfer on GPU 0 took: 55.3594 ms
+Probe on GPU 0 took: 3.53613 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe data transfer on GPU 0 took: 57.4744 ms
+Probe on GPU 0 took: 3.53271 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe data transfer on GPU 0 took: 57.9558 ms
+Probe on GPU 0 took: 3.52344 ms
+Res Count: 1
+Total Revenue: 518906340381
+Cold run probe transfers time: 156.294 ms
+Cold run probe kernels time: 3.5694 ms
+Cold run total (device alloc + transfer + kernels) time: 172 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 57.8573 ms (+-4.97821%)
+Hot runs: average probe kernels time (9 runs): 3.50332 ms (+-1.36719%)
+Hot runs: average total (transfer + kernels) time (9 runs): 190.444 ms (+-1.66252%)
+Tiles? 0
+Query: q21
+Build Size: 7 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 155.366 ms
+Probe on GPU 0 took: 5.63965 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe data transfer on GPU 0 took: 144.274 ms
+Probe on GPU 0 took: 5.28528 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe data transfer on GPU 0 took: 98.7935 ms
+Probe on GPU 0 took: 5.2688 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe data transfer on GPU 0 took: 176.358 ms
+Probe on GPU 0 took: 5.27173 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe data transfer on GPU 0 took: 98.7871 ms
+Probe on GPU 0 took: 5.29199 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe data transfer on GPU 0 took: 59.8187 ms
+Probe on GPU 0 took: 5.18713 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe data transfer on GPU 0 took: 177.515 ms
+Probe on GPU 0 took: 5.19165 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe data transfer on GPU 0 took: 137.63 ms
+Probe on GPU 0 took: 5.17969 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe data transfer on GPU 0 took: 59.8176 ms
+Probe on GPU 0 took: 5.17944 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe data transfer on GPU 0 took: 176.49 ms
+Probe on GPU 0 took: 5.19263 ms
+Res Count: 280
+Total Revenue: 46352924331
+Cold run probe transfers time: 155.366 ms
+Cold run probe kernels time: 5.63965 ms
+Cold run total (device alloc + transfer + kernels) time: 172 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 125.498 ms (+-36.0745%)
+Hot runs: average probe kernels time (9 runs): 5.22759 ms (+-0.899178%)
+Hot runs: average total (transfer + kernels) time (9 runs): 195.778 ms (+-1.12367%)
+Query: q22
+Build Size: 7 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 155.386 ms
+Probe on GPU 0 took: 4.63177 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe data transfer on GPU 0 took: 176.521 ms
+Probe on GPU 0 took: 4.57898 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe data transfer on GPU 0 took: 98.8076 ms
+Probe on GPU 0 took: 4.57959 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe data transfer on GPU 0 took: 177.542 ms
+Probe on GPU 0 took: 4.53394 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe data transfer on GPU 0 took: 59.83 ms
+Probe on GPU 0 took: 4.58044 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe data transfer on GPU 0 took: 138.57 ms
+Probe on GPU 0 took: 4.49963 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe data transfer on GPU 0 took: 176.484 ms
+Probe on GPU 0 took: 4.5105 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe data transfer on GPU 0 took: 59.8206 ms
+Probe on GPU 0 took: 4.65112 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe data transfer on GPU 0 took: 98.7747 ms
+Probe on GPU 0 took: 4.57837 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe data transfer on GPU 0 took: 176.49 ms
+Probe on GPU 0 took: 4.58984 ms
+Res Count: 56
+Total Revenue: 13085994263
+Cold run probe transfers time: 155.386 ms
+Cold run probe kernels time: 4.63177 ms
+Cold run total (device alloc + transfer + kernels) time: 171 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 129.204 ms (+-37.0385%)
+Hot runs: average probe kernels time (9 runs): 4.56694 ms (+-0.952615%)
+Hot runs: average total (transfer + kernels) time (9 runs): 195 ms (+-0%)
+Query: q23
+Build Size: 7 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 156.103 ms
+Probe on GPU 0 took: 4.42273 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe data transfer on GPU 0 took: 61.2078 ms
+Probe on GPU 0 took: 4.31494 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe data transfer on GPU 0 took: 138.71 ms
+Probe on GPU 0 took: 4.34058 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe data transfer on GPU 0 took: 61.0089 ms
+Probe on GPU 0 took: 4.32507 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe data transfer on GPU 0 took: 138.691 ms
+Probe on GPU 0 took: 4.32031 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe data transfer on GPU 0 took: 60.9968 ms
+Probe on GPU 0 took: 4.32935 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe data transfer on GPU 0 took: 138.698 ms
+Probe on GPU 0 took: 4.32007 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe data transfer on GPU 0 took: 60.9919 ms
+Probe on GPU 0 took: 4.33203 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe data transfer on GPU 0 took: 137.636 ms
+Probe on GPU 0 took: 4.31592 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe data transfer on GPU 0 took: 177.541 ms
+Probe on GPU 0 took: 4.32227 ms
+Res Count: 7
+Total Revenue: 1245611327
+Cold run probe transfers time: 156.103 ms
+Cold run probe kernels time: 4.42273 ms
+Cold run total (device alloc + transfer + kernels) time: 175 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 108.387 ms (+-40.5172%)
+Hot runs: average probe kernels time (9 runs): 4.3245 ms (+-0.180134%)
+Hot runs: average total (transfer + kernels) time (9 runs): 195 ms (+-0%)
+Query: q31
+Build Size: 4 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 156.348 ms
+Probe on GPU 0 took: 7.48596 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe data transfer on GPU 0 took: 177.314 ms
+Probe on GPU 0 took: 6.5791 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe data transfer on GPU 0 took: 137.612 ms
+Probe on GPU 0 took: 6.64404 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe data transfer on GPU 0 took: 98.6683 ms
+Probe on GPU 0 took: 6.55591 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe data transfer on GPU 0 took: 98.7991 ms
+Probe on GPU 0 took: 6.61145 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe data transfer on GPU 0 took: 59.9583 ms
+Probe on GPU 0 took: 6.64441 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe data transfer on GPU 0 took: 60.9768 ms
+Probe on GPU 0 took: 6.60303 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe data transfer on GPU 0 took: 59.9492 ms
+Probe on GPU 0 took: 6.71094 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe data transfer on GPU 0 took: 59.8193 ms
+Probe on GPU 0 took: 6.62427 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe data transfer on GPU 0 took: 59.8223 ms
+Probe on GPU 0 took: 6.54321 ms
+Res Count: 150
+Total Revenue: 335331166
+Cold run probe transfers time: 156.348 ms
+Cold run probe kernels time: 7.48596 ms
+Cold run total (device alloc + transfer + kernels) time: 175 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 90.3244 ms (+-44.4563%)
+Hot runs: average probe kernels time (9 runs): 6.61293 ms (+-0.731315%)
+Hot runs: average total (transfer + kernels) time (9 runs): 197.111 ms (+-0.159438%)
+Query: q32
+Build Size: 4 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 156.374 ms
+Probe on GPU 0 took: 4.68176 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe data transfer on GPU 0 took: 175.085 ms
+Probe on GPU 0 took: 3.71411 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe data transfer on GPU 0 took: 134.337 ms
+Probe on GPU 0 took: 3.70703 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe data transfer on GPU 0 took: 95.5474 ms
+Probe on GPU 0 took: 3.66626 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe data transfer on GPU 0 took: 56.8108 ms
+Probe on GPU 0 took: 3.69238 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe data transfer on GPU 0 took: 173.254 ms
+Probe on GPU 0 took: 3.703 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe data transfer on GPU 0 took: 134.387 ms
+Probe on GPU 0 took: 3.62671 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe data transfer on GPU 0 took: 95.5549 ms
+Probe on GPU 0 took: 3.63989 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe data transfer on GPU 0 took: 56.7925 ms
+Probe on GPU 0 took: 3.65161 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe data transfer on GPU 0 took: 55.6838 ms
+Probe on GPU 0 took: 3.69849 ms
+Res Count: 600
+Total Revenue: 635420481612
+Cold run probe transfers time: 156.374 ms
+Cold run probe kernels time: 4.68176 ms
+Cold run total (device alloc + transfer + kernels) time: 173 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 108.606 ms (+-41.6718%)
+Hot runs: average probe kernels time (9 runs): 3.67772 ms (+-0.826479%)
+Hot runs: average total (transfer + kernels) time (9 runs): 191 ms (+-0.493617%)
+Query: q33
+Build Size: 4 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 156.365 ms
+Probe on GPU 0 took: 3.40356 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe data transfer on GPU 0 took: 176.761 ms
+Probe on GPU 0 took: 2.55579 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe data transfer on GPU 0 took: 54.5609 ms
+Probe on GPU 0 took: 2.55286 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe data transfer on GPU 0 took: 96.6809 ms
+Probe on GPU 0 took: 2.54688 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe data transfer on GPU 0 took: 171.11 ms
+Probe on GPU 0 took: 2.54809 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe data transfer on GPU 0 took: 55.7212 ms
+Probe on GPU 0 took: 2.54797 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe data transfer on GPU 0 took: 133.322 ms
+Probe on GPU 0 took: 2.55981 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe data transfer on GPU 0 took: 172.161 ms
+Probe on GPU 0 took: 2.63232 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe data transfer on GPU 0 took: 96.5552 ms
+Probe on GPU 0 took: 2.58984 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe data transfer on GPU 0 took: 135.467 ms
+Probe on GPU 0 took: 2.54443 ms
+Res Count: 24
+Total Revenue: 24594303366
+Cold run probe transfers time: 156.365 ms
+Cold run probe kernels time: 3.40356 ms
+Cold run total (device alloc + transfer + kernels) time: 172 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 121.371 ms (+-37.3168%)
+Hot runs: average probe kernels time (9 runs): 2.56422 ms (+-1.06648%)
+Hot runs: average total (transfer + kernels) time (9 runs): 189.444 ms (+-1.05897%)
+Query: q34
+Build Size: 4 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 156.22 ms
+Probe on GPU 0 took: 2.45703 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe data transfer on GPU 0 took: 92.5765 ms
+Probe on GPU 0 took: 2.44507 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe data transfer on GPU 0 took: 171.21 ms
+Probe on GPU 0 took: 2.44055 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe data transfer on GPU 0 took: 54.5552 ms
+Probe on GPU 0 took: 2.44092 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe data transfer on GPU 0 took: 94.4697 ms
+Probe on GPU 0 took: 2.43884 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe data transfer on GPU 0 took: 57.6946 ms
+Probe on GPU 0 took: 2.44739 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe data transfer on GPU 0 took: 136.563 ms
+Probe on GPU 0 took: 2.43897 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe data transfer on GPU 0 took: 174.258 ms
+Probe on GPU 0 took: 2.44385 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe data transfer on GPU 0 took: 132.25 ms
+Probe on GPU 0 took: 2.44141 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe data transfer on GPU 0 took: 173.212 ms
+Probe on GPU 0 took: 2.44189 ms
+Res Count: 4
+Total Revenue: 314524993
+Cold run probe transfers time: 156.22 ms
+Cold run probe kernels time: 2.45703 ms
+Cold run total (device alloc + transfer + kernels) time: 173 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 120.754 ms (+-37.43%)
+Hot runs: average probe kernels time (9 runs): 2.4421 ms (+-0.109699%)
+Hot runs: average total (transfer + kernels) time (9 runs): 188.444 ms (+-0.905795%)
+Query: q41
+Build Size: 12 MB
+Probe Size: 2744 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 156.375 ms
+Probe on GPU 0 took: 8.09595 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe data transfer on GPU 0 took: 147.787 ms
+Probe on GPU 0 took: 8.03076 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe data transfer on GPU 0 took: 264.214 ms
+Probe on GPU 0 took: 8.00537 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe data transfer on GPU 0 took: 225.362 ms
+Probe on GPU 0 took: 7.99365 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe data transfer on GPU 0 took: 186.505 ms
+Probe on GPU 0 took: 8.06787 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe data transfer on GPU 0 took: 225.356 ms
+Probe on GPU 0 took: 8.04639 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe data transfer on GPU 0 took: 186.5 ms
+Probe on GPU 0 took: 8.05029 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe data transfer on GPU 0 took: 225.366 ms
+Probe on GPU 0 took: 8.06323 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe data transfer on GPU 0 took: 186.521 ms
+Probe on GPU 0 took: 7.92529 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe data transfer on GPU 0 took: 226.378 ms
+Probe on GPU 0 took: 7.95264 ms
+Res Count: 35
+Total Revenue: 683250982
+Cold run probe transfers time: 156.375 ms
+Cold run probe kernels time: 8.09595 ms
+Cold run total (device alloc + transfer + kernels) time: 260 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 208.221 ms (+-15.5316%)
+Hot runs: average probe kernels time (9 runs): 8.01506 ms (+-0.589408%)
+Hot runs: average total (transfer + kernels) time (9 runs): 295 ms (+-0%)
+Query: q42
+Build Size: 12 MB
+Probe Size: 2744 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 156.081 ms
+Probe on GPU 0 took: 7.13342 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe data transfer on GPU 0 took: 117.451 ms
+Probe on GPU 0 took: 5.83484 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe data transfer on GPU 0 took: 109.705 ms
+Probe on GPU 0 took: 5.78687 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe data transfer on GPU 0 took: 109.754 ms
+Probe on GPU 0 took: 5.7981 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe data transfer on GPU 0 took: 187.438 ms
+Probe on GPU 0 took: 5.80322 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe data transfer on GPU 0 took: 187.444 ms
+Probe on GPU 0 took: 5.83374 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe data transfer on GPU 0 took: 187.558 ms
+Probe on GPU 0 took: 5.83203 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe data transfer on GPU 0 took: 148.714 ms
+Probe on GPU 0 took: 5.82935 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe data transfer on GPU 0 took: 149.772 ms
+Probe on GPU 0 took: 5.84253 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe data transfer on GPU 0 took: 148.578 ms
+Probe on GPU 0 took: 5.81543 ms
+Res Count: 875
+Total Revenue: 779858557688
+Cold run probe transfers time: 156.081 ms
+Cold run probe kernels time: 7.13342 ms
+Cold run total (device alloc + transfer + kernels) time: 262 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 149.602 ms (+-20.5659%)
+Hot runs: average probe kernels time (9 runs): 5.81957 ms (+-0.315134%)
+Hot runs: average total (transfer + kernels) time (9 runs): 293.556 ms (+-0.788519%)
+Query: q43
+Build Size: 12 MB
+Probe Size: 2744 MB
+Repetitions: 10
+Number of GPUs: 1
+Number of Partitions: 1
+Probe data transfer on GPU 0 took: 156.082 ms
+Probe on GPU 0 took: 3.99805 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe data transfer on GPU 0 took: 214.04 ms
+Probe on GPU 0 took: 4.00171 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe data transfer on GPU 0 took: 175.936 ms
+Probe on GPU 0 took: 4.0022 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe data transfer on GPU 0 took: 165.438 ms
+Probe on GPU 0 took: 3.99146 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe data transfer on GPU 0 took: 165.508 ms
+Probe on GPU 0 took: 3.98462 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe data transfer on GPU 0 took: 164.448 ms
+Probe on GPU 0 took: 3.99439 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe data transfer on GPU 0 took: 164.412 ms
+Probe on GPU 0 took: 3.99146 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe data transfer on GPU 0 took: 164.415 ms
+Probe on GPU 0 took: 3.98901 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe data transfer on GPU 0 took: 166.491 ms
+Probe on GPU 0 took: 4.01025 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe data transfer on GPU 0 took: 175.909 ms
+Probe on GPU 0 took: 4.00342 ms
+Res Count: 800
+Total Revenue: 32178923638
+Cold run probe transfers time: 156.082 ms
+Cold run probe kernels time: 3.99805 ms
+Cold run total (device alloc + transfer + kernels) time: 259 ms
+Hot run:
+Hot runs: average probe transfers time (9 runs): 172.955 ms (+-8.78485%)
+Hot runs: average probe kernels time (9 runs): 3.9965 ms (+-0.19546%)
+Hot runs: average total (transfer + kernels) time (9 runs): 273.111 ms (+-1.79745%)
+Tiles? 1
+Query: q11
+Build Size: 0 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 0.012085 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe time: 0.012085 ms
+Probe took: 0.012207 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe time: 0.012207 ms
+Probe took: 0.012329 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe time: 0.012329 ms
+Probe took: 0.010864 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe time: 0.010864 ms
+Probe took: 0.011719 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe time: 0.011719 ms
+Probe took: 0.01416 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe time: 0.01416 ms
+Probe took: 0.015503 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe time: 0.015503 ms
+Probe took: 0.016357 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe time: 0.016357 ms
+Probe took: 0.010254 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe time: 0.010254 ms
+Probe took: 0.009766 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe time: 0.009766 ms
+Cold run probe kernels time: 0.012085 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 0.0125732 ms (+-17.2879%)
+Query: q12
+Build Size: 0 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 0.012574 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe time: 0.012574 ms
+Probe took: 0.009521 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe time: 0.009521 ms
+Probe took: 0.010987 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe time: 0.010987 ms
+Probe took: 0.010132 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe time: 0.010132 ms
+Probe took: 0.010498 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe time: 0.010498 ms
+Probe took: 0.010009 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe time: 0.010009 ms
+Probe took: 0.008667 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe time: 0.008667 ms
+Probe took: 0.0083 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe time: 0.0083 ms
+Probe took: 0.008056 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe time: 0.008056 ms
+Probe took: 0.009033 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe time: 0.009033 ms
+Cold run probe kernels time: 0.012574 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 0.009467 ms (+-10.1399%)
+Query: q13
+Build Size: 0 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 0.01361 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe time: 0.01361 ms
+Probe took: 0.009522 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe time: 0.009522 ms
+Probe took: 0.012451 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe time: 0.012451 ms
+Probe took: 0.011718 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe time: 0.011718 ms
+Probe took: 0.01184 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe time: 0.01184 ms
+Probe took: 0.008423 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe time: 0.008423 ms
+Probe took: 0.010742 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe time: 0.010742 ms
+Probe took: 0.008545 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe time: 0.008545 ms
+Probe took: 0.01001 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe time: 0.01001 ms
+Probe took: 0.009766 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe time: 0.009766 ms
+Cold run probe kernels time: 0.01361 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 0.0103352 ms (+-13.208%)
+Tiles? 1
+Query: q21
+Build Size: 7 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 721.465 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe time: 721.465 ms
+Probe took: 721.426 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe time: 721.426 ms
+Probe took: 721.459 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe time: 721.459 ms
+Probe took: 721.408 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe time: 721.408 ms
+Probe took: 721.428 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe time: 721.428 ms
+Probe took: 721.432 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe time: 721.432 ms
+Probe took: 721.414 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe time: 721.414 ms
+Probe took: 721.415 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe time: 721.415 ms
+Probe took: 721.419 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe time: 721.419 ms
+Probe took: 721.811 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe time: 721.811 ms
+Cold run probe kernels time: 721.465 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 721.468 ms (+-0.0169191%)
+Query: q22
+Build Size: 7 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 715.174 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe time: 715.174 ms
+Probe took: 715.107 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe time: 715.107 ms
+Probe took: 715.118 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe time: 715.118 ms
+Probe took: 715.112 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe time: 715.112 ms
+Probe took: 715.1 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe time: 715.1 ms
+Probe took: 715.104 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe time: 715.104 ms
+Probe took: 715.458 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe time: 715.458 ms
+Probe took: 715.112 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe time: 715.112 ms
+Probe took: 715.138 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe time: 715.138 ms
+Probe took: 715.141 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe time: 715.141 ms
+Cold run probe kernels time: 715.174 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 715.155 ms (+-0.0151338%)
+Query: q23
+Build Size: 7 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 713.912 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe time: 713.912 ms
+Probe took: 713.872 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe time: 713.872 ms
+Probe took: 713.896 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe time: 713.896 ms
+Probe took: 714.242 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe time: 714.242 ms
+Probe took: 713.893 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe time: 713.893 ms
+Probe took: 713.911 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe time: 713.911 ms
+Probe took: 713.877 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe time: 713.877 ms
+Probe took: 713.878 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe time: 713.878 ms
+Probe took: 713.938 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe time: 713.938 ms
+Probe took: 713.873 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe time: 713.873 ms
+Cold run probe kernels time: 713.912 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 713.931 ms (+-0.0156636%)
+Query: q31
+Build Size: 4 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 799.451 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe time: 799.451 ms
+Probe took: 799.412 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe time: 799.412 ms
+Probe took: 799.007 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe time: 799.007 ms
+Probe took: 799.008 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe time: 799.008 ms
+Probe took: 798.968 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe time: 798.968 ms
+Probe took: 798.906 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe time: 798.906 ms
+Probe took: 799.007 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe time: 799.007 ms
+Probe took: 799.081 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe time: 799.081 ms
+Probe took: 798.993 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe time: 798.993 ms
+Probe took: 798.903 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe time: 798.903 ms
+Cold run probe kernels time: 799.451 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 799.032 ms (+-0.0180331%)
+Query: q32
+Build Size: 4 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 666.335 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe time: 666.335 ms
+Probe took: 666.305 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe time: 666.305 ms
+Probe took: 666.276 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe time: 666.276 ms
+Probe took: 666.29 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe time: 666.29 ms
+Probe took: 666.325 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe time: 666.325 ms
+Probe took: 666.317 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe time: 666.317 ms
+Probe took: 666.345 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe time: 666.345 ms
+Probe took: 666.675 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe time: 666.675 ms
+Probe took: 666.345 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe time: 666.345 ms
+Probe took: 666.308 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe time: 666.308 ms
+Cold run probe kernels time: 666.335 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 666.354 ms (+-0.0173493%)
+Query: q33
+Build Size: 4 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 648.544 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe time: 648.544 ms
+Probe took: 648.483 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe time: 648.483 ms
+Probe took: 648.483 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe time: 648.483 ms
+Probe took: 648.498 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe time: 648.498 ms
+Probe took: 648.516 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe time: 648.516 ms
+Probe took: 648.827 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe time: 648.827 ms
+Probe took: 648.485 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe time: 648.485 ms
+Probe took: 648.487 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe time: 648.487 ms
+Probe took: 648.541 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe time: 648.541 ms
+Probe took: 648.458 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe time: 648.458 ms
+Cold run probe kernels time: 648.544 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 648.531 ms (+-0.0165019%)
+Query: q34
+Build Size: 4 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 648.067 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe time: 648.067 ms
+Probe took: 648.044 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe time: 648.044 ms
+Probe took: 648.052 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe time: 648.052 ms
+Probe took: 648.371 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe time: 648.371 ms
+Probe took: 648.051 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe time: 648.051 ms
+Probe took: 648.026 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe time: 648.026 ms
+Probe took: 648.047 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe time: 648.047 ms
+Probe took: 648.041 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe time: 648.041 ms
+Probe took: 648.03 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe time: 648.03 ms
+Probe took: 648.028 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe time: 648.028 ms
+Cold run probe kernels time: 648.067 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 648.077 ms (+-0.0161184%)
+Query: q41
+Build Size: 12 MB
+Probe Size: 2744 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 913.01 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe time: 913.01 ms
+Probe took: 911.03 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe time: 911.03 ms
+Probe took: 910.813 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe time: 910.813 ms
+Probe took: 910.903 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe time: 910.903 ms
+Probe took: 910.758 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe time: 910.758 ms
+Probe took: 910.626 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe time: 910.626 ms
+Probe took: 910.944 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe time: 910.944 ms
+Probe took: 910.675 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe time: 910.675 ms
+Probe took: 910.989 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe time: 910.989 ms
+Probe took: 910.628 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe time: 910.628 ms
+Cold run probe kernels time: 913.01 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 910.819 ms (+-0.0161407%)
+Query: q42
+Build Size: 12 MB
+Probe Size: 2744 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 841.435 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe time: 841.435 ms
+Probe took: 841.775 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe time: 841.775 ms
+Probe took: 841.761 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe time: 841.761 ms
+Probe took: 841.437 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe time: 841.437 ms
+Probe took: 842.178 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe time: 842.178 ms
+Probe took: 841.591 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe time: 841.591 ms
+Probe took: 841.866 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe time: 841.866 ms
+Probe took: 841.746 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe time: 841.746 ms
+Probe took: 841.626 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe time: 841.626 ms
+Probe took: 841.81 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe time: 841.81 ms
+Cold run probe kernels time: 841.435 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 841.754 ms (+-0.0230679%)
+Query: q43
+Build Size: 12 MB
+Probe Size: 2744 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 754.936 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe time: 754.936 ms
+Probe took: 754.498 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe time: 754.498 ms
+Probe took: 754.506 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe time: 754.506 ms
+Probe took: 754.482 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe time: 754.482 ms
+Probe took: 754.504 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe time: 754.504 ms
+Probe took: 754.492 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe time: 754.492 ms
+Probe took: 754.493 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe time: 754.493 ms
+Probe took: 754.53 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe time: 754.53 ms
+Probe took: 754.484 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe time: 754.484 ms
+Probe took: 754.836 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe time: 754.836 ms
+Cold run probe kernels time: 754.936 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 754.536 ms (+-0.0141666%)
+Tiles? 0
+Query: q11
+Build Size: 0 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 163.724 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe time: 163.724 ms
+Probe took: 163.514 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe time: 163.514 ms
+Probe took: 163.484 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe time: 163.484 ms
+Probe took: 163.486 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe time: 163.486 ms
+Probe took: 163.454 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe time: 163.454 ms
+Probe took: 163.483 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe time: 163.483 ms
+Probe took: 163.509 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe time: 163.509 ms
+Probe took: 163.502 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe time: 163.502 ms
+Probe took: 163.511 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe time: 163.511 ms
+Probe took: 163.527 ms
+Res Count: 1
+Total Revenue: 8947181207035
+Probe time: 163.527 ms
+Cold run probe kernels time: 163.724 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 163.497 ms (+-0.0127815%)
+Query: q12
+Build Size: 0 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 153.801 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe time: 153.801 ms
+Probe took: 153.994 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe time: 153.994 ms
+Probe took: 153.765 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe time: 153.765 ms
+Probe took: 153.961 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe time: 153.961 ms
+Probe took: 153.946 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe time: 153.946 ms
+Probe took: 153.938 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe time: 153.938 ms
+Probe took: 154.271 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe time: 154.271 ms
+Probe took: 153.961 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe time: 153.961 ms
+Probe took: 153.891 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe time: 153.891 ms
+Probe took: 153.823 ms
+Res Count: 1
+Total Revenue: 1933612439150
+Probe time: 153.823 ms
+Cold run probe kernels time: 153.801 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 153.95 ms (+-0.086421%)
+Query: q13
+Build Size: 0 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 153.554 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe time: 153.554 ms
+Probe took: 153.583 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe time: 153.583 ms
+Probe took: 153.397 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe time: 153.397 ms
+Probe took: 153.578 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe time: 153.578 ms
+Probe took: 153.483 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe time: 153.483 ms
+Probe took: 153.657 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe time: 153.657 ms
+Probe took: 153.674 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe time: 153.674 ms
+Probe took: 153.651 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe time: 153.651 ms
+Probe took: 153.502 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe time: 153.502 ms
+Probe took: 153.661 ms
+Res Count: 1
+Total Revenue: 518906340381
+Probe time: 153.661 ms
+Cold run probe kernels time: 153.554 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 153.576 ms (+-0.0595916%)
+Tiles? 0
+Query: q21
+Build Size: 7 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 634.819 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe time: 634.819 ms
+Probe took: 634.694 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe time: 634.694 ms
+Probe took: 635.071 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe time: 635.071 ms
+Probe took: 634.684 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe time: 634.684 ms
+Probe took: 634.734 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe time: 634.734 ms
+Probe took: 634.781 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe time: 634.781 ms
+Probe took: 634.689 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe time: 634.689 ms
+Probe took: 634.692 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe time: 634.692 ms
+Probe took: 634.714 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe time: 634.714 ms
+Probe took: 634.811 ms
+Res Count: 280
+Total Revenue: 46352924331
+Probe time: 634.811 ms
+Cold run probe kernels time: 634.819 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 634.763 ms (+-0.0183617%)
+Query: q22
+Build Size: 7 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 622.466 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe time: 622.466 ms
+Probe took: 622.17 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe time: 622.17 ms
+Probe took: 622.166 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe time: 622.166 ms
+Probe took: 622.174 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe time: 622.174 ms
+Probe took: 622.156 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe time: 622.156 ms
+Probe took: 622.175 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe time: 622.175 ms
+Probe took: 622.215 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe time: 622.215 ms
+Probe took: 622.154 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe time: 622.154 ms
+Probe took: 622.199 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe time: 622.199 ms
+Probe took: 622.197 ms
+Res Count: 56
+Total Revenue: 13085994263
+Probe time: 622.197 ms
+Cold run probe kernels time: 622.466 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 622.178 ms (+-0.00313605%)
+Query: q23
+Build Size: 7 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 620.562 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe time: 620.562 ms
+Probe took: 621.84 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe time: 621.84 ms
+Probe took: 620.976 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe time: 620.976 ms
+Probe took: 622.681 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe time: 622.681 ms
+Probe took: 620.624 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe time: 620.624 ms
+Probe took: 620.647 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe time: 620.647 ms
+Probe took: 620.594 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe time: 620.594 ms
+Probe took: 620.618 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe time: 620.618 ms
+Probe took: 620.677 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe time: 620.677 ms
+Probe took: 620.673 ms
+Res Count: 7
+Total Revenue: 1245611327
+Probe time: 620.673 ms
+Cold run probe kernels time: 620.562 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 621.037 ms (+-0.111423%)
+Query: q31
+Build Size: 4 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 742.184 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe time: 742.184 ms
+Probe took: 741.894 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe time: 741.894 ms
+Probe took: 742.058 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe time: 742.058 ms
+Probe took: 741.888 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe time: 741.888 ms
+Probe took: 742.201 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe time: 742.201 ms
+Probe took: 741.975 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe time: 741.975 ms
+Probe took: 742.008 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe time: 742.008 ms
+Probe took: 742.464 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe time: 742.464 ms
+Probe took: 742.068 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe time: 742.068 ms
+Probe took: 741.923 ms
+Res Count: 150
+Total Revenue: 335331166
+Probe time: 741.923 ms
+Cold run probe kernels time: 742.184 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 742.053 ms (+-0.0233017%)
+Query: q32
+Build Size: 4 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 552.335 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe time: 552.335 ms
+Probe took: 552.879 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe time: 552.879 ms
+Probe took: 552.895 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe time: 552.895 ms
+Probe took: 552.931 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe time: 552.931 ms
+Probe took: 552.935 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe time: 552.935 ms
+Probe took: 553.204 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe time: 553.204 ms
+Probe took: 552.847 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe time: 552.847 ms
+Probe took: 552.864 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe time: 552.864 ms
+Probe took: 552.86 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe time: 552.86 ms
+Probe took: 552.885 ms
+Res Count: 600
+Total Revenue: 635420481612
+Probe time: 552.885 ms
+Cold run probe kernels time: 552.335 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 552.922 ms (+-0.0187567%)
+Query: q33
+Build Size: 4 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 519.25 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe time: 519.25 ms
+Probe took: 519.643 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe time: 519.643 ms
+Probe took: 519.633 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe time: 519.633 ms
+Probe took: 519.633 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe time: 519.633 ms
+Probe took: 519.61 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe time: 519.61 ms
+Probe took: 519.95 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe time: 519.95 ms
+Probe took: 519.635 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe time: 519.635 ms
+Probe took: 519.658 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe time: 519.658 ms
+Probe took: 519.62 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe time: 519.62 ms
+Probe took: 519.632 ms
+Res Count: 24
+Total Revenue: 24594303366
+Probe time: 519.632 ms
+Cold run probe kernels time: 519.25 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 519.668 ms (+-0.0193398%)
+Query: q34
+Build Size: 4 MB
+Probe Size: 1828 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 519.654 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe time: 519.654 ms
+Probe took: 519.85 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe time: 519.85 ms
+Probe took: 519.846 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe time: 519.846 ms
+Probe took: 519.837 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe time: 519.837 ms
+Probe took: 519.859 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe time: 519.859 ms
+Probe took: 520.224 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe time: 520.224 ms
+Probe took: 519.858 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe time: 519.858 ms
+Probe took: 519.856 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe time: 519.856 ms
+Probe took: 519.858 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe time: 519.858 ms
+Probe took: 519.85 ms
+Res Count: 4
+Total Revenue: 314524993
+Probe time: 519.85 ms
+Cold run probe kernels time: 519.654 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 519.893 ms (+-0.022533%)
+Query: q41
+Build Size: 12 MB
+Probe Size: 2744 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 832.683 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe time: 832.683 ms
+Probe took: 829.958 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe time: 829.958 ms
+Probe took: 829.853 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe time: 829.853 ms
+Probe took: 830.484 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe time: 830.484 ms
+Probe took: 829.975 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe time: 829.975 ms
+Probe took: 829.856 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe time: 829.856 ms
+Probe took: 829.964 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe time: 829.964 ms
+Probe took: 829.746 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe time: 829.746 ms
+Probe took: 829.774 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe time: 829.774 ms
+Probe took: 830.279 ms
+Res Count: 35
+Total Revenue: 683250982
+Probe time: 830.279 ms
+Cold run probe kernels time: 832.683 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 829.988 ms (+-0.0276144%)
+Query: q42
+Build Size: 12 MB
+Probe Size: 2744 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 694.021 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe time: 694.021 ms
+Probe took: 694.262 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe time: 694.262 ms
+Probe took: 693.96 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe time: 693.96 ms
+Probe took: 694.493 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe time: 694.493 ms
+Probe took: 694.245 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe time: 694.245 ms
+Probe took: 694.126 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe time: 694.126 ms
+Probe took: 694.163 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe time: 694.163 ms
+Probe took: 694.432 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe time: 694.432 ms
+Probe took: 694.279 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe time: 694.279 ms
+Probe took: 693.688 ms
+Res Count: 875
+Total Revenue: 779858557688
+Probe time: 693.688 ms
+Cold run probe kernels time: 694.021 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 694.183 ms (+-0.033125%)
+Query: q43
+Build Size: 12 MB
+Probe Size: 2744 MB
+Repetitions: 10
+Number of GPUs: 0
+Number of Partitions: 1
+Probe took: 555.665 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe time: 555.665 ms
+Probe took: 555.93 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe time: 555.93 ms
+Probe took: 555.994 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe time: 555.994 ms
+Probe took: 556.001 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe time: 556.001 ms
+Probe took: 555.914 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe time: 555.914 ms
+Probe took: 555.927 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe time: 555.927 ms
+Probe took: 556.265 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe time: 556.265 ms
+Probe took: 555.917 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe time: 555.917 ms
+Probe took: 555.96 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe time: 555.96 ms
+Probe took: 555.963 ms
+Res Count: 800
+Total Revenue: 32178923638
+Probe time: 555.963 ms
+Cold run probe kernels time: 555.665 ms
+Hot run:
+Hot runs: average probe kernels time (9 runs): 555.986 ms (+-0.0185717%)

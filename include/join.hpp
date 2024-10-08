@@ -1,8 +1,10 @@
 #include <sycl/sycl.hpp>
 
+#include "non_tiled_kernels.hpp"
+
 #pragma once
 
-#define HASH(X, Y, Z) ((X - Z) % Y)
+//#define HASH(X, Y, Z) ((X - Z) % Y)
 
 // https://github.com/zjin-lcf/HeCBench/blob/master/src/graphB%2B-sycl/kernels.h#L4-L13
 template <typename K> inline K atomicCAS(K *val, K expected, K desired) {

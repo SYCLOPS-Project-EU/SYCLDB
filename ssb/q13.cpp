@@ -6,18 +6,42 @@
 
 using namespace std;
 
+template <typename R>
+using sum_reduction_t = sycl::reducer<
+    R, std::plus<R>, 0, 1UL,
+    sycl::detail::ReductionIdentityContainer<R, std::plus<R>, false>>;
+
+void
+DeviceSelectIf(int *lo_orderdate, int *lo_discount, int *lo_quantity,
+               int *lo_extendedprice, int lo_num_entries,
+               sum_reduction_t<unsigned long long> &sum, sycl::id<1> idx) {
+  bool sf = false;
+  selection_element<int>(sf, lo_orderdate[idx], NONE, GE, 19940204);
+  selection_element<int>(sf, lo_orderdate[idx], AND, LE, 19940210);
+  selection_element<int>(sf, lo_quantity[idx], AND, GE, 26);
+  selection_element<int>(sf, lo_quantity[idx], AND, LE, 35);
+  selection_element<int>(sf, lo_discount[idx], AND, GE, 5);
+  selection_element<int>(sf, lo_discount[idx], AND, LE, 7);
+  if (sf)
+    sum.combine(lo_discount[idx] * lo_extendedprice[idx]);
+}
+
+
 template <int BLOCK_THREADS, int ITEMS_PER_THREAD>
 SYCL_EXTERNAL void
 DeviceSelectIf(int *lo_orderdate, int *lo_discount, int *lo_quantity,
                int *lo_extendedprice, int lo_num_entries,
-               unsigned long long *revenue, const sycl::nd_item<1> &item_ct1,
-               long long *buffer) {
+               sum_reduction_t<unsigned long long> &sum,
+               //nsigned long long *revenue,
+               const sycl::nd_item<1> &item_ct1//,
+               //long long *buffer
+               ) {
   // Load a segment of consecutive items that are blocked across threads
   int items[ITEMS_PER_THREAD];
   int selection_flags[ITEMS_PER_THREAD];
   int items2[ITEMS_PER_THREAD];
 
-  unsigned long long sum = 0;
+  //unsigned long long sum = 0;
 
   int tile_offset = item_ct1.get_group(0) * TILE_ITEMS;
   int num_tiles = (lo_num_entries + TILE_ITEMS - 1) / TILE_ITEMS;
@@ -55,9 +79,10 @@ DeviceSelectIf(int *lo_orderdate, int *lo_discount, int *lo_quantity,
   for (int ITEM = 0; ITEM < ITEMS_PER_THREAD; ++ITEM) {
     if ((item_ct1.get_local_id(0) + (BLOCK_THREADS * ITEM) < num_tile_items))
       if (selection_flags[ITEM])
-        sum += items[ITEM] * items2[ITEM];
+        //sum += items[ITEM] * items2[ITEM];
+        sum.combine(items[ITEM] * items2[ITEM]);
   }
-
+/*
   item_ct1.barrier(sycl::access::fence_space::local_space);
 
 #ifndef COMPILER_IS_ACPP
@@ -81,7 +106,7 @@ DeviceSelectIf(int *lo_orderdate, int *lo_discount, int *lo_quantity,
                        sycl::memory_scope::work_group,
                        sycl::access::address_space::global_space>(revenue[0]);
   sum_obj.fetch_add(sum);
-#endif
+#endif*/
 }
 
 /**
@@ -91,9 +116,10 @@ int main(int argc, char **argv) {
   int num_partitions = 1;
   int num_gpus = 1;
   int repetitions = 10;
+  bool tiles = 0;
 
   int c;
-  while ((c = getopt(argc, argv, "p:g:r:")) != -1) {
+  while ((c = getopt(argc, argv, "p:g:r:t:")) != -1) {
     switch (c) {
     case 'p':
       num_partitions = atoi(optarg);
@@ -103,6 +129,9 @@ int main(int argc, char **argv) {
       break;
     case 'r':
       repetitions = atoi(optarg);
+      break;
+    case 't':
+      tiles = atoi(optarg);
       break;
     default:
       abort();
@@ -131,35 +160,36 @@ int main(int argc, char **argv) {
                        N_BLOCK_THREADS);
     sycl::range<1> lws(N_BLOCK_THREADS);
     event = queue.submit([&](sycl::handler &cgh) {
-      sycl::local_accessor<long long, 1> buffer_acc_ct1(sycl::range<1>(32),
-                                                        cgh);
+      //sycl::local_accessor<long long, 1> buffer_acc_ct1(sycl::range<1>(32),
+      //                                                  cgh);
 
       int *probe_data_ct0 = probe_data[0];
       int *probe_data_ct1 = probe_data[1];
       int *probe_data_ct2 = probe_data[2];
       int *probe_data_ct3 = probe_data[3];
 
-      cgh.parallel_for(sycl::nd_range<1>(gws, lws), [=](sycl::nd_item<1>
-                                                            item_ct1) {
-#ifndef COMPILER_IS_ACPP
+      auto sum_reduction = sycl::reduction(res, std::plus<unsigned long long>());
+      if (tiles) {
+      cgh.parallel_for(sycl::nd_range<1>(gws, lws), sum_reduction,
+                       [=](sycl::nd_item<1> item_ct1, sum_reduction_t<unsigned long long> &res) {
         DeviceSelectIf<N_BLOCK_THREADS, N_ITEMS_PER_THREAD>(
             probe_data_ct0, probe_data_ct1, probe_data_ct2, probe_data_ct3,
-            partition_len, res, item_ct1,
-            buffer_acc_ct1.get_multi_ptr<sycl::access::decorated::yes>().get());
-#else
-            DeviceSelectIf<N_BLOCK_THREADS, N_ITEMS_PER_THREAD>(
-                probe_data_ct0, probe_data_ct1, probe_data_ct2, probe_data_ct3,
-                partition_len, res, item_ct1,
-                buffer_acc_ct1.get_pointer()
+            partition_len, res, item_ct1
             );
-#endif
       });
+      }
+      else {
+        cgh.parallel_for(partition_len, sum_reduction,
+                         [=](sycl::id<1> idx, sum_reduction_t<unsigned long long> &res) {
+          DeviceSelectIf(probe_data_ct0, probe_data_ct1, probe_data_ct2, probe_data_ct3,
+                partition_len, res, idx);
+        });
+      }
     });
   };
 
   cout << "Query: q13" << endl;
   exchange_operator_wrapper<int, unsigned long long>(
       NULL, 0, prob, num_gpus, num_partitions, repetitions, cpu_queue);
-
   return 0;
 }
