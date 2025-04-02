@@ -6,72 +6,30 @@
 
 using namespace std;
 
-template <int BLOCK_THREADS, int ITEMS_PER_THREAD>
-SYCL_EXTERNAL void probe(int *lo_orderdate, int *lo_custkey, int *lo_suppkey,
-                         int *lo_revenue, int lo_len, int *ht_s, int s_len,
-                         int *ht_c, int c_len, int *ht_d, int d_len, int *res,
-                         const sycl::nd_item<1> &item_ct1) {
-  // Load a segment of consecutive items that are blocked across threads
-  int items[ITEMS_PER_THREAD];
-  int selection_flags[ITEMS_PER_THREAD];
-  int c_nation[ITEMS_PER_THREAD];
-  int s_nation[ITEMS_PER_THREAD];
-  int year[ITEMS_PER_THREAD];
-  int revenue[ITEMS_PER_THREAD];
+void probe(int *lo_orderdate, int *lo_custkey, int *lo_suppkey, int *lo_revenue,
+           int lo_len, int *ht_s, int s_len, int *ht_c, int c_len, int *ht_d,
+           int d_len, int *res, sycl::id<1> idx) {
+  int s_nation;
+  int c_nation;
+  int year;
+  bool sf = true;
+  probe_keys_vals_element(lo_suppkey[idx], s_nation, sf, s_len, ht_s, s_len, 0);
+  probe_keys_vals_element(lo_custkey[idx], c_nation, sf, c_len, ht_c, c_len, 0);
+  probe_keys_vals_element(lo_orderdate[idx], year, sf, d_len, ht_d, d_len,
+                          19920101);
 
-  int tile_offset = item_ct1.get_group(0) * TILE_ITEMS;
-  int num_tiles = (lo_len + TILE_ITEMS - 1) / TILE_ITEMS;
-  int num_tile_items = TILE_ITEMS;
-
-  if (item_ct1.get_group(0) == num_tiles - 1) {
-    num_tile_items = lo_len - tile_offset;
-  }
-
-  InitFlags<BLOCK_THREADS, ITEMS_PER_THREAD>(selection_flags);
-
-  BlockLoad<int, BLOCK_THREADS, ITEMS_PER_THREAD>(
-      lo_suppkey + tile_offset, items, num_tile_items, item_ct1);
-  BlockProbeAndPHT_2<int, int, BLOCK_THREADS, ITEMS_PER_THREAD>(
-      items, s_nation, selection_flags, ht_s, s_len, 0, num_tile_items,
-      item_ct1);
-
-  BlockLoad<int, BLOCK_THREADS, ITEMS_PER_THREAD>(
-      lo_custkey + tile_offset, items, num_tile_items, item_ct1);
-  BlockProbeAndPHT_2<int, int, BLOCK_THREADS, ITEMS_PER_THREAD>(
-      items, c_nation, selection_flags, ht_c, c_len, 0, num_tile_items,
-      item_ct1);
-
-  BlockLoad<int, BLOCK_THREADS, ITEMS_PER_THREAD>(
-      lo_orderdate + tile_offset, items, num_tile_items, item_ct1);
-  BlockProbeAndPHT_2<int, int, BLOCK_THREADS, ITEMS_PER_THREAD>(
-      items, year, selection_flags, ht_d, d_len, 19920101, num_tile_items,
-      item_ct1);
-
-  BlockLoad<int, BLOCK_THREADS, ITEMS_PER_THREAD>(
-      lo_revenue + tile_offset, revenue, num_tile_items, item_ct1);
-
-#pragma unroll
-  for (int ITEM = 0; ITEM < ITEMS_PER_THREAD; ++ITEM) {
-    if ((item_ct1.get_local_id(0) + (BLOCK_THREADS * ITEM)) < num_tile_items) {
-      if (selection_flags[ITEM]) {
-        int hash = (s_nation[ITEM] * 25 * 7 + c_nation[ITEM] * 7 +
-                    (year[ITEM] - 1992)) %
-                   ((1998 - 1992 + 1) * 25 * 25);
-        res[hash * 6] = year[ITEM];
-        res[hash * 6 + 1] = c_nation[ITEM];
-        res[hash * 6 + 2] = s_nation[ITEM];
-        /*atomicAdd(&res[hash * 6 + 4], revenue[ITEM]);*/
-        // dpct::atomic_fetch_add<sycl::access::address_space::generic_space>(
-        //     reinterpret_cast<unsigned long long *>(&res[hash * 6 + 4]),
-        //     (long long)(revenue[ITEM]));
-        auto sum_obj =
-            sycl::atomic_ref<unsigned long long, sycl::memory_order::relaxed,
-                             sycl::memory_scope::work_group,
-                             sycl::access::address_space::global_space>(
-                *reinterpret_cast<unsigned long long *>(&res[hash * 6 + 4]));
-        sum_obj.fetch_add((unsigned long long)(revenue[ITEM]));
-      }
-    }
+  if (sf) {
+    int hash = (s_nation * 250 * 7 + c_nation * 7 + (year - 1992)) %
+               ((1998 - 1992 + 1) * 250 * 250);
+    res[hash * 6] = year;
+    res[hash * 6 + 1] = c_nation;
+    res[hash * 6 + 2] = s_nation;
+    auto sum_obj =
+        sycl::atomic_ref<unsigned long long, sycl::memory_order::relaxed,
+                         sycl::memory_scope::work_group,
+                         sycl::access::address_space::global_space>(
+            *reinterpret_cast<unsigned long long *>(&res[hash * 6 + 4]));
+    sum_obj.fetch_add((long long)(lo_revenue[idx]));
   }
 }
 
@@ -172,9 +130,10 @@ int main(int argc, char **argv) {
   int num_partitions = 1;
   int num_gpus = 1;
   int repetitions = 10;
+  int modes = 0;
 
   int c;
-  while ((c = getopt(argc, argv, "p:g:r:")) != -1) {
+  while ((c = getopt(argc, argv, "p:g:r:m:")) != -1) {
     switch (c) {
     case 'p':
       num_partitions = atoi(optarg);
@@ -185,14 +144,19 @@ int main(int argc, char **argv) {
     case 'r':
       repetitions = atoi(optarg);
       break;
+    case 'm':
+      modes = atoi(optarg);
+      break;
     default:
       abort();
     }
   }
+  std::cout << "MODE " << modes << std::endl;
 
   sycl::queue cpu_queue{
       sycl::default_selector_v,
-      sycl::property_list{sycl::property::queue::enable_profiling()}};
+      sycl::property_list{sycl::property::queue::enable_profiling(),
+      sycl::ext::codeplay::experimental::property::queue::enable_fusion()}};
 
   BuildData<int> build_tables[3];
 
@@ -276,7 +240,7 @@ int main(int argc, char **argv) {
   prob.h_lo_data[2] = loadColumn<int>("lo_suppkey", LO_LEN, cpu_queue);
   prob.h_lo_data[3] = loadColumn<int>("lo_revenue", LO_LEN, cpu_queue);
   prob.len_each_probe = LO_LEN;
-  prob.res_size = ((1998 - 1992 + 1) * 25 * 25);
+  prob.res_size = ((1998 - 1992 + 1) * 250 * 250);
   prob.res_array_cols = 6;
   prob.res_idx = 4;
   prob.probe_function = [&](int **probe_data, int partition_len,
@@ -285,27 +249,124 @@ int main(int argc, char **argv) {
     sycl::range<1> gws((partition_len + TILE_ITEMS - 1) / TILE_ITEMS *
                        N_BLOCK_THREADS);
     sycl::range<1> lws(N_BLOCK_THREADS);
-    event = queue.submit([&](sycl::handler &cgh) {
-      int *probe_data_ct0 = probe_data[0];
-      int *probe_data_ct1 = probe_data[1];
-      int *probe_data_ct2 = probe_data[2];
-      int *probe_data_ct3 = probe_data[3];
-      int *hash_tables_ct5 = hash_tables[0];
-      int build_tables_num_slots_ct6 = build_tables[0].num_slots;
-      int *hash_tables_ct7 = hash_tables[1];
-      int build_tables_num_slots_ct8 = build_tables[1].num_slots;
-      int *hash_tables_ct9 = hash_tables[2];
-      int build_tables_num_slots_ct10 = build_tables[2].num_slots;
-
-      cgh.parallel_for(
-          sycl::nd_range<1>(gws, lws), [=](sycl::nd_item<1> item_ct1) {
-            probe<N_BLOCK_THREADS, N_ITEMS_PER_THREAD>(
-                probe_data_ct0, probe_data_ct1, probe_data_ct2, probe_data_ct3,
-                partition_len, hash_tables_ct5, build_tables_num_slots_ct6,
-                hash_tables_ct7, build_tables_num_slots_ct8, hash_tables_ct9,
-                build_tables_num_slots_ct10, res, item_ct1);
+    if (modes == 0) {
+      event = queue.submit([&](sycl::handler &cgh) {
+        int *probe_data_ct0 = probe_data[0];
+        int *probe_data_ct1 = probe_data[1];
+        int *probe_data_ct2 = probe_data[2];
+        int *probe_data_ct3 = probe_data[3];
+        int *hash_tables_ct5 = hash_tables[0];
+        int build_tables_num_slots_ct6 = build_tables[0].num_slots;
+        int *hash_tables_ct7 = hash_tables[1];
+        int build_tables_num_slots_ct8 = build_tables[1].num_slots;
+        int *hash_tables_ct9 = hash_tables[2];
+        int build_tables_num_slots_ct10 = build_tables[2].num_slots;
+        cgh.parallel_for(partition_len, [=](sycl::id<1> id) {
+            probe(probe_data_ct0, probe_data_ct1, probe_data_ct2,
+                  probe_data_ct3, partition_len, hash_tables_ct5,
+                  build_tables_num_slots_ct6, hash_tables_ct7,
+                  build_tables_num_slots_ct8, hash_tables_ct9,
+                  build_tables_num_slots_ct10, res, id);
           });
-    });
+      });
+    }
+
+    if (modes == 1 || modes == 2) {
+      int *s_nation = sycl::malloc_shared<int>(partition_len, queue);
+      int *c_nation = sycl::malloc_shared<int>(partition_len, queue);
+      int *year = sycl::malloc_shared<int>(partition_len, queue);
+      bool *selection_flags = sycl::malloc_shared<bool>(partition_len, queue);
+
+      queue.parallel_for(partition_len, [=](sycl::id<1> idx) {
+        selection_flags[idx] = 1;
+        s_nation[idx] = 0;
+        c_nation[idx] = 0;
+        year[idx] = 0;
+      });
+      queue.wait();
+
+      sycl::ext::codeplay::experimental::fusion_wrapper fw{queue};
+      float total_time = 0;
+      auto start = std::chrono::high_resolution_clock::now();
+      if (modes == 1)
+        fw.start_fusion();
+      event = queue.submit([&](sycl::handler &cgh) {
+        int *probe_data_ct2 = probe_data[2];
+        int *hash_tables_ct5 = hash_tables[0];
+        int build_tables_num_slots_ct6 = build_tables[0].num_slots;
+        cgh.parallel_for(partition_len, [=](sycl::id<1> idx) {
+          probe_keys_vals_element(probe_data_ct2[idx], s_nation[idx],
+                                  selection_flags[idx],
+                                  build_tables_num_slots_ct6, hash_tables_ct5,
+                                  build_tables_num_slots_ct6, 0);
+        });
+      });
+      if (modes == 2)
+        wait_and_add_time(event, total_time);
+      event = queue.submit([&](sycl::handler &cgh) {
+        int *probe_data_ct1 = probe_data[1];
+        int *hash_tables_ct7 = hash_tables[1];
+        int build_tables_num_slots_ct8 = build_tables[1].num_slots;
+        cgh.parallel_for(partition_len, [=](sycl::id<1> idx) {
+          probe_keys_vals_element(probe_data_ct1[idx], c_nation[idx],
+                                  selection_flags[idx],
+                                  build_tables_num_slots_ct8, hash_tables_ct7,
+                                  build_tables_num_slots_ct8, 0);
+        });
+      });
+      if (modes == 2)
+        wait_and_add_time(event, total_time);
+      event = queue.submit([&](sycl::handler &cgh) {
+        int *probe_data_ct0 = probe_data[0];
+        int *hash_tables_ct9 = hash_tables[2];
+        int build_tables_num_slots_ct10 = build_tables[2].num_slots;
+        cgh.parallel_for(partition_len, [=](sycl::id<1> idx) {
+          probe_keys_vals_element(probe_data_ct0[idx], year[idx],
+                                  selection_flags[idx],
+                                  build_tables_num_slots_ct10, hash_tables_ct9,
+                                  build_tables_num_slots_ct10, 19920101);
+        });
+      });
+      if (modes == 2)
+        wait_and_add_time(event, total_time);
+      event = queue.submit([&](sycl::handler &cgh) {
+        int *probe_data_ct3 = probe_data[3];
+        cgh.parallel_for(partition_len, [=](sycl::id<1> idx) {
+          if (selection_flags[idx]) {
+            int hash = (s_nation[idx] * 250 * 7 + c_nation[idx] * 7 +
+                        (year[idx] - 1992)) %
+                       ((1998 - 1992 + 1) * 250 * 250);
+            res[hash * 6] = year[idx];
+            res[hash * 6 + 1] = c_nation[idx];
+            res[hash * 6 + 2] = s_nation[idx];
+            auto sum_obj = sycl::atomic_ref<
+                unsigned long long, sycl::memory_order::relaxed,
+                sycl::memory_scope::work_group,
+                sycl::access::address_space::global_space>(
+                *reinterpret_cast<unsigned long long *>(&res[hash * 6 + 4]));
+            sum_obj.fetch_add((unsigned long long)(probe_data_ct3[idx]));
+          }
+        });
+      });
+      if (modes == 1) {
+        event = fw.complete_fusion(
+            {sycl::ext::codeplay::experimental::property::no_barriers{}});
+        event.wait();
+      }
+      auto end = std::chrono::high_resolution_clock::now();
+      std::chrono::duration<double> elapsed = end - start;
+      event.wait();
+      wait_and_add_time(event, total_time);
+      unsigned long long selectivity = 0;
+      for (int i = 0; i < partition_len; i++)
+        if (selection_flags[i])
+          selectivity++;
+      std::cout << "%Selected " << (float)selectivity/(float)partition_len * 100 << std::endl;
+      std::cout << "Q31 >>Internal total timer reported " << total_time
+                << " ms.\n";
+      std::cout << "Q31 >>External total timer reported "
+                << elapsed.count() * 1000 << " ms.\n";
+    }
   };
 
   cout << "Query: q31" << endl;

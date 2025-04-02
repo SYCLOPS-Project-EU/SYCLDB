@@ -83,14 +83,12 @@ All benchmarks accept the following command-line arguments:
 - `-r`  → Number of repetitions (each repetition re-allocates memory, transfers, and computes the data).
 
 Additional flags for **hash join**:
-- `-t`  → Probe type (`0`: 1D non-tiled, `>=1`: tile-based probe).
 - `-d`  → Size of the build table (tuples).
 - `-f`  → Size of the probe table (tuples).
 
 Additional flags for **projection**:
-- `-t`  → Projection type (`0`: 1D non-tiled, `>=1`: tile-based projection).
+- `-b`  → Projection type (`0`: with USM (default), `>=1`: with buffers).
 - `-n`  → Table size (tuples).
-- `-s`  → Computation type (`0`: dot-product, `>=1`: sigmoid).
 
 The SSB dataset is expected in the directory generated in the first step. The `SF` macro in `ssb/ssb_utils.hpp` provides default scale factors (1, 10, 20, 100). We typically use `100` and adjust `LO_LEN` as needed.
 

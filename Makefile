@@ -8,7 +8,6 @@ all:
 # Pattern rule to compile a file
 %: %.cpp
 	$(CXX) $(CXXFLAGS) $(CXXOPT) $< -o $@
-
-#./$@
-#rm -f $@
+	./$@
+	rm -f $@
 

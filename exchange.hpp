@@ -9,13 +9,7 @@
 #include <utility>
 #include <vector>
 
-#include "include/join.hpp"
-#include "include/load.hpp"
-#include "include/pred.hpp"
-#ifndef COMPILER_IS_ACPP
-#include "include/reduce.hpp"
-#endif
-#include "include/store.hpp"
+#include "include/kernels.hpp"
 #include <cmath>
 
 using namespace std;
@@ -81,11 +75,13 @@ perf_times exchange_operator(const BuildData<T> *builds, int n_builds,
       if (d.is_gpu() && general_queues.size() < n_gpus) {
         general_queues.push_back(sycl::queue(
             d, // sycl::async_handler{},
-            sycl::property_list{sycl::property::queue::enable_profiling()}));
+            sycl::property_list{sycl::property::queue::enable_profiling(),
+            sycl::ext::codeplay::experimental::property::queue::enable_fusion()}));
         kernel_queues.push_back(sycl::queue(
             general_queues[general_queues.size() - 1].get_context(),
             d, // sycl::async_handler{},
-            sycl::property_list{sycl::property::queue::enable_profiling()}));
+            sycl::property_list{sycl::property::queue::enable_profiling(),
+            sycl::ext::codeplay::experimental::property::queue::enable_fusion()}));
       }
     }
   }
@@ -345,9 +341,10 @@ perf_times run_on_host(const BuildData<T> *builds, int n_builds,
                              builds[i].h_dim_val, h_build_tables[i], queue, e);
     queue.wait();
   }
+  queue.wait();
   probe.probe_function(probe.h_lo_data, probe.len_each_probe, h_build_tables,
                        h_res, queue, e);
-  queue.wait();
+  //queue.wait();
   wait_and_measure_time(e, "Probe", probe_time);
   S total_revenue = 0;
   int res_count = 0;
@@ -370,6 +367,118 @@ perf_times run_on_host(const BuildData<T> *builds, int n_builds,
       std::chrono::duration_cast<std::chrono::milliseconds>(ftime - itime)
           .count();
   return {0, probe_time, exec_time};
+}
+
+template <typename T, typename R, typename S = R>
+perf_times simple_run_on_device(const BuildData<T> *builds, int n_builds,
+                                const ProbeData<T, R> &probe) {
+  sycl::queue queue{
+      sycl::gpu_selector_v,
+      sycl::property_list{sycl::property::queue::enable_profiling(),
+      sycl::ext::codeplay::experimental::property::queue::enable_fusion()}};
+
+  float transfer_kernels_time = 0;
+  float probe_kernels_time = 0;
+  R *h_res =
+      sycl::malloc_shared<R>(probe.res_size * probe.res_array_cols, queue);
+
+  auto itime = std::chrono::steady_clock::now();
+
+  sycl::event e{};
+  sycl::event et{};
+
+  T **d_filter_cols = sycl::malloc_host<T *>(n_builds, queue);
+  T **d_dim_keys = sycl::malloc_host<T *>(n_builds, queue);
+  T **d_dim_vals = sycl::malloc_host<T *>(n_builds, queue);
+  T **d_hash_tables = sycl::malloc_host<T *>(n_builds, queue);
+  queue.wait();
+  for (int i = 0; i < n_builds; i++) {
+    if (builds[i].h_filter_col != NULL) {
+      d_filter_cols[i] = sycl::malloc_device<T>(builds[i].num_tuples, queue);
+      queue.memcpy(d_filter_cols[i], builds[i].h_filter_col,
+                   builds[i].num_tuples * sizeof(T));
+    }
+    if (builds[i].h_dim_key != NULL) {
+      d_dim_keys[i] = sycl::malloc_device<T>(builds[i].num_tuples, queue);
+      queue.memcpy(d_dim_keys[i], builds[i].h_dim_key,
+                   builds[i].num_tuples * sizeof(T));
+    }
+    if (builds[i].h_dim_val != NULL) {
+      d_dim_vals[i] = sycl::malloc_device<T>(builds[i].num_tuples, queue);
+      queue.memcpy(d_dim_vals[i], builds[i].h_dim_val,
+                   builds[i].num_tuples * sizeof(T));
+    }
+    queue.wait();
+    d_hash_tables[i] = sycl::malloc_device<T>(2 * builds[i].num_slots, queue);
+    e = queue.memset(d_hash_tables[i], 0, 2 * builds[i].num_slots * sizeof(T));
+    //wait_and_measure_time(e, "Allocate GPU", probe_kernels_time);
+  }
+  queue.wait();
+  for (int i = 0; i < n_builds; i++) {
+    builds[i].build_function(d_filter_cols[i], d_dim_keys[i], d_dim_vals[i],
+                             d_hash_tables[i], queue, e);
+    e.wait();
+    wait_and_measure_time(e, "Build GPU", probe_kernels_time);
+  }
+  std::cout << "Build total: " << probe_kernels_time << " ms" << std::endl;
+
+  T **d_probe_data = sycl::malloc_host<T *>(probe.n_probes, queue);
+  for (int j = 0; j < probe.n_probes; j++) {
+    d_probe_data[j] = sycl::malloc_device<T>(probe.len_each_probe, queue);
+  }
+  queue.wait();
+  for (int j = 0; j < probe.n_probes; j++) {
+    et = queue.memcpy(d_probe_data[j], probe.h_lo_data[j],
+                      probe.len_each_probe * sizeof(T));
+  }
+  queue.wait();
+  wait_and_measure_time(et, "Probe data transfer on GPU",
+                        transfer_kernels_time);
+  probe.probe_function(d_probe_data, probe.len_each_probe, d_hash_tables, h_res,
+                       queue, e);
+  wait_and_measure_time(e, "Probe on GPU", probe_kernels_time);
+  for (int i = 0; i < n_builds; i++) {
+    if (builds[i].h_filter_col != NULL) {
+      sycl::free(d_filter_cols[i], queue);
+    }
+    if (builds[i].h_dim_key != NULL) {
+      sycl::free(d_dim_keys[i], queue);
+    }
+    if (builds[i].h_dim_val != NULL) {
+      sycl::free(d_dim_vals[i], queue);
+    }
+    sycl::free(d_hash_tables[i], queue);
+  }
+  for (int j = 0; j < probe.n_probes; j++) {
+    sycl::free(d_probe_data[j], queue);
+  }
+  sycl::free(d_probe_data, queue);
+  if (n_builds) {
+    sycl::free(d_filter_cols, queue);
+    sycl::free(d_dim_keys, queue);
+    sycl::free(d_dim_vals, queue);
+    sycl::free(d_hash_tables, queue);
+  }
+
+  auto ftime = std::chrono::steady_clock::now();
+  float exec_time =
+      std::chrono::duration_cast<std::chrono::milliseconds>(ftime - itime)
+          .count();
+
+  int res_count = 0;
+  S total_revenue = 0;
+  for (int i = 0; i < probe.res_size; i++) {
+      if (h_res[probe.res_array_cols * i] != 0) {
+        res_count += 1;
+        total_revenue += h_res[probe.res_array_cols * i + probe.res_idx];
+      }
+  }
+  cout << "Res Count: " << res_count << endl;
+  cout << "Total Revenue: " << total_revenue << endl;
+
+  sycl::free(h_res, queue);
+
+  return {transfer_kernels_time, probe_kernels_time, exec_time};
 }
 
 template <typename T, typename R, typename S = R>
@@ -399,8 +508,11 @@ void exchange_operator_wrapper(const BuildData<T> *builds, int n_builds,
   for (int i = 0; i < repetitions; i++) {
     perf_times times;
     if (n_gpus > 0)
-      times = exchange_operator<T, R, S>(builds, n_builds, probe, n_gpus,
-                                         n_partitions);
+      if (n_partitions == 1)
+        times = simple_run_on_device<T, R, S>(builds, n_builds, probe);
+      else
+        times = exchange_operator<T, R, S>(builds, n_builds, probe, n_gpus,
+                                           n_partitions);
     else
       times = run_on_host<T, R, S>(builds, n_builds, probe, cpu_queue);
     transfer_kernels_times[i] = times.transfer_kernels_time;

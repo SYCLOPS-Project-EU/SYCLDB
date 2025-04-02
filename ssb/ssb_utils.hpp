@@ -42,14 +42,16 @@ using namespace std;
 
 #endif
 
-#ifndef N_BLOCK_THREADS
-#define N_BLOCK_THREADS 128
-#endif
-#ifndef N_ITEMS_PER_THREAD
-#define N_ITEMS_PER_THREAD 4
-#endif
-
-#define TILE_ITEMS (N_BLOCK_THREADS * N_ITEMS_PER_THREAD)
+void wait_and_add_time(sycl::event e, float &total_time) {
+  e.wait();
+  const auto start =
+      e.get_profiling_info<sycl::info::event_profiling::command_start>();
+  const auto end =
+      e.get_profiling_info<sycl::info::event_profiling::command_end>();
+  float time = (end - start) / 1e6;
+  total_time += time;
+  std::cout << "so far took: " << time << std::endl;
+}
 
 int index_of(string *arr, int len, string val) {
   for (int i = 0; i < len; i++)
@@ -111,12 +113,9 @@ string lookup(string col_name) {
 template <typename T>
 T *loadColumn(string col_name, int num_entries, sycl::queue queue,
               bool shared_input = false) {
-  // dpct::get_default_queue()
-  // sycl::queue{sycl::default_selector_v}
   // std::chrono::time_point<std::chrono::system_clock> start, end;
   // start = std::chrono::system_clock::now();
-  T *h_col = (shared_input) ? sycl::malloc_shared<T>(num_entries, queue)
-                            : sycl::malloc_host<T>(num_entries, queue);
+  T *h_col = sycl::malloc_host<T>(num_entries, queue);
   // end = std::chrono::system_clock::now();
   // if (col_name[0] == 'l')
   //   cout << "Allocated " << num_entries * sizeof(T) << " bytes in " <<
