@@ -1,13 +1,14 @@
+CXX := icpx
 CXXOPT := -std=c++20 -O3 -Wall
-CXXFLAGS := -fsycl -fsycl-targets=nvptx64-nvidia-cuda,spir64
-CXX := clang++
+CXXFLAGS := -fsycl -fsycl-targets=nvptx64-nvidia-cuda
 
 # Default target
-all:
+all: join join_tiling
 
 # Pattern rule to compile a file
 %: %.cpp
 	$(CXX) $(CXXFLAGS) $(CXXOPT) $< -o $@
-	./$@
-	rm -f $@
+
+clean:
+	rm -f join join_tiling project
 

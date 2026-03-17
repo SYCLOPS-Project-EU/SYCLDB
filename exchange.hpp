@@ -75,13 +75,11 @@ perf_times exchange_operator(const BuildData<T> *builds, int n_builds,
       if (d.is_gpu() && general_queues.size() < n_gpus) {
         general_queues.push_back(sycl::queue(
             d, // sycl::async_handler{},
-            sycl::property_list{sycl::property::queue::enable_profiling(),
-            sycl::ext::codeplay::experimental::property::queue::enable_fusion()}));
+            sycl::property_list{sycl::property::queue::enable_profiling()}));
         kernel_queues.push_back(sycl::queue(
             general_queues[general_queues.size() - 1].get_context(),
             d, // sycl::async_handler{},
-            sycl::property_list{sycl::property::queue::enable_profiling(),
-            sycl::ext::codeplay::experimental::property::queue::enable_fusion()}));
+            sycl::property_list{sycl::property::queue::enable_profiling()}));
       }
     }
   }
@@ -374,8 +372,7 @@ perf_times simple_run_on_device(const BuildData<T> *builds, int n_builds,
                                 const ProbeData<T, R> &probe) {
   sycl::queue queue{
       sycl::gpu_selector_v,
-      sycl::property_list{sycl::property::queue::enable_profiling(),
-      sycl::ext::codeplay::experimental::property::queue::enable_fusion()}};
+      sycl::property_list{sycl::property::queue::enable_profiling()}};
 
   float transfer_kernels_time = 0;
   float probe_kernels_time = 0;

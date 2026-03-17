@@ -1,0 +1,4 @@
+#pragma once
+#define N_BLOCK_THREADS 256
+#define N_ITEMS_PER_THREAD 4
+#define TILE_ITEMS (N_BLOCK_THREADS * N_ITEMS_PER_THREAD)
