@@ -8,7 +8,7 @@ using namespace std;
 
 void probe(int *lo_orderdate, int *lo_partkey, int *lo_suppkey, int *lo_revenue,
            int lo_len, int *ht_s, int s_len, int *ht_p, int p_len, int *ht_d,
-           int d_len, int *res, sycl::id<1> idx) {
+           int d_len, int *res, bool use_sharding, sycl::id<1> idx) {
   bool sf = true;
   int brand;
   int year;
@@ -121,9 +121,10 @@ int main(int argc, char **argv) {
   
   int repetitions = 10;
   int modes = 0;
+  int optimize = 0;
 
   int c;
-  while ((c = getopt(argc, argv, "t:r:m:")) != -1) {
+  while ((c = getopt(argc, argv, "t:r:m:O:")) != -1) {
     switch (c) {
     case 't':
       target_device = atoi(optarg);
@@ -134,6 +135,7 @@ int main(int argc, char **argv) {
     case 'm':
       modes = atoi(optarg);
       break;
+    case 'O': optimize = atoi(optarg); break;
     default:
       abort();
     }
@@ -244,6 +246,7 @@ int main(int argc, char **argv) {
   prob.probe_function = [&](int **probe_data, int partition_len,
                             int **hash_tables, int *res, sycl::queue queue,
                             sycl::event &event) {
+    bool use_sharding = queue.get_device().is_cpu() && (optimize == 1);
     sycl::range<1> gws((partition_len + TILE_ITEMS - 1) / TILE_ITEMS *
                        N_BLOCK_THREADS);
     sycl::range<1> lws(N_BLOCK_THREADS);
@@ -264,7 +267,7 @@ int main(int argc, char **argv) {
                 probe_data_ct3, partition_len, hash_tables_ct5,
                 build_tables_num_slots_ct6, hash_tables_ct7,
                 build_tables_num_slots_ct8, hash_tables_ct9,
-                build_tables_num_slots_ct10, res, idx);
+                build_tables_num_slots_ct10, res, use_sharding, idx);
           });
       });
     }
@@ -358,7 +361,7 @@ int main(int argc, char **argv) {
   };
 
   cout << "Query: q22" << endl;
-  run_benchmark(build_tables, 3, prob, q, repetitions, cpu_queue);
+  run_benchmark(build_tables, 3, prob, q, repetitions, cpu_queue, optimize == 1);
 
   return 0;
 }

@@ -26,7 +26,8 @@ sycl::event build(int *dim_key, int *dim_val, int num_tuples, int *hash_table,
 
 sycl::event probe(int *fact_fkey, int *fact_val, int num_tuples,
                   int *hash_table, int num_slots, unsigned long long *res,
-                  sycl::queue &q) {
+                  sycl::queue &q, int mode) {
+  // Original reduction strategy is already optimal for CPU
   return q.parallel_for(num_tuples, sycl::reduction(res, sycl::plus<>()),
                         [=](sycl::id<1> idx, auto &sum) {
                           int join_val = 0;
@@ -35,7 +36,7 @@ sycl::event probe(int *fact_fkey, int *fact_val, int num_tuples,
                                                   num_tuples, hash_table,
                                                   num_slots, 0);
                           if (sf)
-                            sum.combine(fact_val[idx] * join_val);
+                            sum.combine((unsigned long long)fact_val[idx] * join_val);
                         });
 }
 
@@ -44,24 +45,17 @@ int main(int argc, char **argv) {
   int num_dim = 16 * 4 << 20;  // build table size
   int target_device = 1;
   int repetitions = 10;
+  int mode = 0;
 
   int c;
-  while ((c = getopt(argc, argv, "f:d:t:r:")) != -1) {
+  while ((c = getopt(argc, argv, "f:d:t:r:m:")) != -1) {
     switch (c) {
-    case 'f':
-      num_fact = atoi(optarg);
-      break;
-    case 'd':
-      num_dim = atoi(optarg);
-      break;
-    case 't':
-      target_device = atoi(optarg);
-      break;
-    case 'r':
-      repetitions = atoi(optarg);
-      break;
-    default:
-      abort();
+    case 'f': num_fact = atoi(optarg); break;
+    case 'd': num_dim = atoi(optarg); break;
+    case 't': target_device = atoi(optarg); break;
+    case 'r': repetitions = atoi(optarg); break;
+    case 'm': mode = atoi(optarg); break;
+    default: abort();
     }
   }
 
@@ -84,7 +78,7 @@ int main(int argc, char **argv) {
     q = sycl::queue(sycl::default_selector_v, sycl::property::queue::enable_profiling{});
   }
 
-  cout << "Running on device: " << q.get_device().get_info<sycl::info::device::name>() << "\n";
+  cout << "Running on device: " << q.get_device().get_info<sycl::info::device::name>() << " (Mode: " << (mode == 1 ? "New/CPU-Opt" : "Old/Default") << ")\n";
 
   sycl::queue cpu_queue{
       sycl::cpu_selector_v,
@@ -103,7 +97,9 @@ int main(int argc, char **argv) {
   int *d_hash_table = sycl::malloc_device<int>(num_dim * 2, q);
   int *d_fact_fkey = sycl::malloc_device<int>(num_fact, q);
   int *d_fact_val = sycl::malloc_device<int>(num_fact, q);
-  unsigned long long *d_res = sycl::malloc_device<unsigned long long>(1, q);
+  
+  // Allocate 1024 shards for reduction res
+  unsigned long long *d_res = sycl::malloc_device<unsigned long long>(1024, q);
 
   q.memcpy(d_dim_key, h_dim_key, num_dim * sizeof(int)).wait();
   q.memcpy(d_dim_val, h_dim_val, num_dim * sizeof(int)).wait();
@@ -113,7 +109,7 @@ int main(int argc, char **argv) {
   cout << "Query: join (standalone)" << endl;
   
   for (int r = 0; r < repetitions; r++) {
-    q.memset(d_res, 0, sizeof(unsigned long long)).wait();
+    q.memset(d_res, 0, 1024 * sizeof(unsigned long long)).wait();
     q.memset(d_hash_table, 0, num_dim * 2 * sizeof(int)).wait();
     
     float elapsed_build = 0;
@@ -121,13 +117,15 @@ int main(int argc, char **argv) {
     wait_and_measure_time(ev_build, "Build", elapsed_build);
     
     float elapsed_probe = 0;
-    sycl::event ev_probe = probe(d_fact_fkey, d_fact_val, num_fact, d_hash_table, num_dim, d_res, q);
+    sycl::event ev_probe = probe(d_fact_fkey, d_fact_val, num_fact, d_hash_table, num_dim, d_res, q, mode);
     wait_and_measure_time(ev_probe, "Probe", elapsed_probe);
     
-    unsigned long long h_res = 0;
-    q.memcpy(&h_res, d_res, sizeof(unsigned long long)).wait();
+    unsigned long long h_res_shards[1024];
+    q.memcpy(h_res_shards, d_res, 1024 * sizeof(unsigned long long)).wait();
+    unsigned long long total_res = 0;
+    for (int i = 0; i < 1024; i++) total_res += h_res_shards[i];
     
-    cout << "Repetition " << r << " Result: " << h_res 
+    cout << "Repetition " << r << " Result: " << total_res 
          << " | Build time: " << elapsed_build << " ms"
          << " | Probe time: " << elapsed_probe << " ms" << endl;
   }

@@ -8,7 +8,7 @@ using namespace std;
 
 void probe(int *lo_orderdate, int *lo_partkey, int *lo_suppkey, int *lo_revenue,
            int lo_len, int *ht_s, int s_len, int *ht_p, int p_len, int *ht_d,
-           int d_len, int *res, sycl::id<1> idx) {
+           int d_len, int *res, bool use_sharding, sycl::id<1> idx) {
   int brand;
   int year;
   bool sf = true;
@@ -31,8 +31,7 @@ void probe(int *lo_orderdate, int *lo_partkey, int *lo_suppkey, int *lo_revenue,
 
 void build_hashtable_s(int *filter_col, int *dim_key,
   int num_tuples, int *hash_table,
-  int num_slots,
-  sycl::id<1> idx) {
+  int num_slots, bool use_sharding, sycl::id<1> idx) {
     bool sf = false;
     selection_element<int>(sf, filter_col[idx], NONE, EQ, 1);
     if (sf) {
@@ -41,8 +40,7 @@ void build_hashtable_s(int *filter_col, int *dim_key,
 }
 
 void build_hashtable_p(int *filter_col, int *dim_key, int *dim_val,
-                        int num_tuples, int *hash_table, int num_slots,
-                        sycl::id<1> idx) {
+                        int num_tuples, int *hash_table, int num_slots, bool use_sharding, sycl::id<1> idx) {
   bool sf = false;
   selection_element<int>(sf, filter_col[idx], NONE, EQ, 1);
   if (sf) {
@@ -52,8 +50,7 @@ void build_hashtable_p(int *filter_col, int *dim_key, int *dim_val,
 }
 
 void build_hashtable_d(int *dim_key, int *dim_val, int num_tuples,
-                        int *hash_table, int num_slots, int val_min,
-                        sycl::id<1> idx) {
+                        int *hash_table, int num_slots, int val_min, bool use_sharding, sycl::id<1> idx) {
   build_keys_vals_element(dim_key[idx], dim_val[idx], true, num_tuples,
                           hash_table, num_slots, val_min);
 }
@@ -63,9 +60,10 @@ int main(int argc, char **argv) {
   
   int repetitions = 10;
   int modes = 0;
+  int optimize = 0;
 
   int c;
-  while ((c = getopt(argc, argv, "t:r:m:")) != -1) {
+  while ((c = getopt(argc, argv, "t:r:m:O:")) != -1) {
     switch (c) {
     case 't':
       target_device = atoi(optarg);
@@ -76,6 +74,7 @@ int main(int argc, char **argv) {
     case 'm':
       modes = atoi(optarg);
       break;
+    case 'O': optimize = atoi(optarg); break;
     default:
       abort();
     }
@@ -170,6 +169,7 @@ int main(int argc, char **argv) {
   prob.probe_function = [&](int **probe_data, int partition_len,
                             int **hash_tables, int *res, sycl::queue queue,
                             sycl::event &event) {
+    bool use_sharding = queue.get_device().is_cpu() && (optimize == 1);
     if (modes == 0) {
       event = queue.submit([&](sycl::handler &cgh) {
         int *probe_data_ct0 = probe_data[0];
@@ -187,7 +187,7 @@ int main(int argc, char **argv) {
                 probe_data_ct3, partition_len, hash_tables_ct5,
                 build_tables_num_slots_ct6, hash_tables_ct7,
                 build_tables_num_slots_ct8, hash_tables_ct9,
-                build_tables_num_slots_ct10, res, idx);
+                build_tables_num_slots_ct10, res, use_sharding, idx);
         });
       });
     }
@@ -282,7 +282,7 @@ int main(int argc, char **argv) {
 
   cout << "Query: q21" << endl;
 
-  run_benchmark(build_tables, 3, prob, q, repetitions, cpu_queue);
+  run_benchmark(build_tables, 3, prob, q, repetitions, cpu_queue, optimize == 1);
 
   return 0;
 }

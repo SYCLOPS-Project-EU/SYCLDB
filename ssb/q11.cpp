@@ -10,9 +10,7 @@ using namespace std;
 
 void QueryKernel(int *lo_orderdate, int *lo_discount, int *lo_quantity,
                  int *lo_extendedprice, int lo_num_entries,
-                 unsigned long long *revenue,
-                 // sum_reduction_t<unsigned long long> &sum,
-                 sycl::id<1> idx) {
+                 unsigned long long *revenue, bool use_sharding, sycl::id<1> idx) {
   bool sf = false;
   selection_element<int>(sf, lo_orderdate[idx], NONE, GT, 19930000);
   selection_element<int>(sf, lo_orderdate[idx], AND, LT, 19940000);
@@ -24,7 +22,7 @@ void QueryKernel(int *lo_orderdate, int *lo_discount, int *lo_quantity,
         sycl::atomic_ref<unsigned long long, sycl::memory_order::relaxed,
                          sycl::memory_scope::work_group,
                          sycl::access::address_space::global_space>(
-            *reinterpret_cast<unsigned long long *>(&revenue[0]));
+            *reinterpret_cast<unsigned long long *>(&revenue[use_sharding ? (idx[0]/1024)%1024 : 0]));
     sum_obj.fetch_add(
         (unsigned long long)(lo_discount[idx] * lo_extendedprice[idx]));
   }
@@ -35,9 +33,10 @@ int main(int argc, char **argv) {
   
   int repetitions = 10;
   int modes = 1;
+  int optimize = 0;
 
   int c;
-  while ((c = getopt(argc, argv, "t:r:m:")) != -1) {
+  while ((c = getopt(argc, argv, "t:r:m:O:")) != -1) {
     switch (c) {
     case 't':
       target_device = atoi(optarg);
@@ -48,6 +47,7 @@ int main(int argc, char **argv) {
     case 'm':
       modes = atoi(optarg);
       break;
+    case 'O': optimize = atoi(optarg); break;
     default:
       abort();
     }
@@ -84,6 +84,7 @@ int main(int argc, char **argv) {
   prob.probe_function = [&](int **probe_data, int partition_len, int **,
                             unsigned long long *res, sycl::queue queue,
                             sycl::event &event) {
+    bool use_sharding = queue.get_device().is_cpu() && (optimize == 1);
     if (modes == 0) {
       event = queue.submit([&](sycl::handler &cgh) {
         int *probe_data_ct0 = probe_data[0];
@@ -95,7 +96,7 @@ int main(int argc, char **argv) {
             sycl::reduction(res, std::plus<unsigned long long>());
         cgh.parallel_for(partition_len, [=](sycl::id<1> idx) {
           QueryKernel(probe_data_ct0, probe_data_ct1, probe_data_ct2,
-                      probe_data_ct3, partition_len, res, idx);
+                      probe_data_ct3, partition_len, res, use_sharding, idx);
         });
       });
     }
@@ -162,7 +163,7 @@ int main(int argc, char **argv) {
                                  sycl::memory_order::relaxed,
                                  sycl::memory_scope::work_group,
                                  sycl::access::address_space::global_space>(
-                    *reinterpret_cast<unsigned long long *>(&res[0]));
+                    *reinterpret_cast<unsigned long long *>(&res[use_sharding ? (idx[0]/1024)%1024 : 0]));
             sum_obj.fetch_add((unsigned long long)(probe_data_ct1[idx] *
                                                    probe_data_ct3[idx]));
           }
@@ -187,7 +188,7 @@ int main(int argc, char **argv) {
   };
 
   cout << "Query: q11" << endl;
-  run_benchmark((BuildData<int>*)nullptr, 0, prob, q, repetitions, cpu_queue);
+  run_benchmark((BuildData<int>*)nullptr, 0, prob, q, repetitions, cpu_queue, optimize == 1);
 
   return 0;
 }

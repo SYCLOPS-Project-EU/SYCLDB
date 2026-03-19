@@ -16,44 +16,39 @@ void wait_and_measure_time(sycl::event &event, const std::string &name, float &e
 }
 
 sycl::event project(float *in1, float *in2, float *out, int num_items,
-                    sycl::queue &q) {
-  return q.parallel_for(num_items, [=](sycl::id<1> idx) {
-    out[idx] = 2 * in1[idx] + 3 * in2[idx];
-  });
-}
-
-sycl::event project(sycl::buffer<float, 1> &in1, sycl::buffer<float, 1> &in2,
-                    sycl::buffer<float, 1> &out, int num_items,
-                    sycl::queue &q) {
-  return q.submit([&](sycl::handler &cgh) {
-    auto in1_acc = in1.get_access<sycl::access::mode::read>(cgh);
-    auto in2_acc = in2.get_access<sycl::access::mode::read>(cgh);
-    auto out_acc = out.get_access<sycl::access::mode::write>(cgh);
-    cgh.parallel_for(num_items, [=](sycl::id<1> idx) {
-      out_acc[idx] = 2 * in1_acc[idx] + 3 * in2_acc[idx];
+                    sycl::queue &q, int mode) {
+  if (q.get_device().is_cpu() && mode == 1) {
+    return q.parallel_for(sycl::range<1>(num_items / 16), [=](sycl::id<1> idx) {
+      size_t offset = idx[0] * 16;
+      sycl::vec<float, 16> v1, v2;
+      v1.load(0, sycl::global_ptr<const float>(static_cast<const float*>(in1 + offset)));
+      v2.load(0, sycl::global_ptr<const float>(static_cast<const float*>(in2 + offset)));
+      v1 *= 2.0f;
+      v2 *= 3.0f;
+      sycl::vec<float, 16> res = v1 + v2;
+      res.store(0, sycl::global_ptr<float>(out + offset));
     });
-  });
+  } else {
+    return q.parallel_for(num_items, [=](sycl::id<1> idx) {
+      out[idx] = 2 * in1[idx] + 3 * in2[idx];
+    });
+  }
 }
 
 int main(int argc, char **argv) {
   int num_items = 1 << 22;
   int target_device = 1;
   int repetitions = 10;
+  int mode = 0;
   
   int c;
-  while ((c = getopt(argc, argv, "n:t:r:")) != -1) {
+  while ((c = getopt(argc, argv, "n:t:r:m:")) != -1) {
     switch (c) {
-    case 'n':
-      num_items = atoi(optarg);
-      break;
-    case 't':
-      target_device = atoi(optarg);
-      break;
-    case 'r':
-      repetitions = atoi(optarg);
-      break;
-    default:
-      abort();
+    case 'n': num_items = atoi(optarg); break;
+    case 't': target_device = atoi(optarg); break;
+    case 'r': repetitions = atoi(optarg); break;
+    case 'm': mode = atoi(optarg); break;
+    default: abort();
     }
   }
 
@@ -76,7 +71,7 @@ int main(int argc, char **argv) {
     q = sycl::queue(sycl::default_selector_v, sycl::property::queue::enable_profiling{});
   }
 
-  cout << "Running on device: " << q.get_device().get_info<sycl::info::device::name>() << "\n";
+  cout << "Running on device: " << q.get_device().get_info<sycl::info::device::name>() << " (Mode: " << (mode == 1 ? "New/CPU-Opt" : "Old/Default") << ")\n";
 
   sycl::queue cpu_queue{
       sycl::cpu_selector_v,
@@ -97,7 +92,7 @@ int main(int argc, char **argv) {
   
   for (int r = 0; r < repetitions; r++) {
     float elapsed_project = 0;
-    sycl::event ev_project = project(d_in1, d_in2, d_out, num_items, q);
+    sycl::event ev_project = project(d_in1, d_in2, d_out, num_items, q, mode);
     wait_and_measure_time(ev_project, "Project", elapsed_project);
     
     cout << "Repetition " << r << " | Project time: " << elapsed_project << " ms" << endl;
@@ -108,7 +103,9 @@ int main(int argc, char **argv) {
   sycl::free(d_out, q);
 
   sycl::free(h_in1, cpu_queue);
+  h_in1 = nullptr;
   sycl::free(h_in2, cpu_queue);
+  h_in2 = nullptr;
 
   return 0;
 }

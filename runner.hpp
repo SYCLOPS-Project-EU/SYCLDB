@@ -30,7 +30,10 @@ template <typename T, typename R> struct ProbeData {
 };
 
 template<typename T, typename R>
-void run_benchmark(BuildData<T>* builds, int n_builds, ProbeData<T, R>& probe, sycl::queue& q, int repetitions, sycl::queue& cpu_queue) {
+void run_benchmark(BuildData<T>* builds, int n_builds, ProbeData<T, R>& probe, sycl::queue& q, int repetitions, sycl::queue& cpu_queue, bool optimize = false) {
+    bool use_cpu_sharding = q.get_device().is_cpu() && optimize && (probe.res_size == 1);
+    int actual_res_size = use_cpu_sharding ? 1024 : probe.res_size;
+
     // 1. Setup Build Device Memory
     std::vector<T*> d_filter_cols(n_builds, nullptr);
     std::vector<T*> d_dim_keys(n_builds, nullptr);
@@ -50,7 +53,7 @@ void run_benchmark(BuildData<T>* builds, int n_builds, ProbeData<T, R>& probe, s
             d_dim_vals[i] = sycl::malloc_device<T>(builds[i].num_tuples, q);
             q.memcpy(d_dim_vals[i], builds[i].h_dim_val, builds[i].num_tuples * sizeof(T)).wait();
         }
-        d_hash_tables[i] = sycl::malloc_device<T>(2 * builds[i].num_slots, q); // The exchange wrapper used 2*num_slots
+        d_hash_tables[i] = sycl::malloc_device<T>(2 * builds[i].num_slots, q);
     }
 
     // 2. Setup Probe Device Memory
@@ -60,10 +63,10 @@ void run_benchmark(BuildData<T>* builds, int n_builds, ProbeData<T, R>& probe, s
         q.memcpy(d_probe_data[i], probe.h_lo_data[i], probe.len_each_probe * sizeof(T)).wait();
     }
     
-    R* d_res = sycl::malloc_device<R>(probe.res_size * probe.res_array_cols, q);
+    R* d_res = sycl::malloc_device<R>(actual_res_size * probe.res_array_cols, q);
 
     for (int r = 0; r < repetitions; r++) {
-        q.memset(d_res, 0, probe.res_size * probe.res_array_cols * sizeof(R)).wait();
+        q.memset(d_res, 0, actual_res_size * probe.res_array_cols * sizeof(R)).wait();
         for (int i = 0; i < n_builds; i++) {
             q.memset(d_hash_tables[i], 0, 2 * builds[i].num_slots * sizeof(T)).wait();
             sycl::event e;
@@ -75,6 +78,15 @@ void run_benchmark(BuildData<T>* builds, int n_builds, ProbeData<T, R>& probe, s
         auto start = std::chrono::high_resolution_clock::now();
         probe.probe_function(d_probe_data, probe.len_each_probe, d_hash_tables.data(), d_res, q, e);
         e.wait();
+
+        if (use_cpu_sharding) {
+            std::vector<R> h_res(actual_res_size);
+            q.memcpy(h_res.data(), d_res, actual_res_size * sizeof(R)).wait();
+            R total = 0;
+            for (int i = 0; i < actual_res_size; i++) total += h_res[i];
+            q.memcpy(d_res, &total, sizeof(R)).wait(); 
+        }
+
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> elapsed = end - start;
         std::cout << "Repetition " << r << " Kernel Time: " << elapsed.count() * 1000 << " ms" << std::endl;
