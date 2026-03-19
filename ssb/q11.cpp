@@ -1,4 +1,4 @@
-#include "../exchange.hpp"
+#include "../runner.hpp"
 #include "ssb_utils.hpp"
 
 #include <getopt.h>
@@ -6,10 +6,7 @@
 
 using namespace std;
 
-template <typename R>
-using sum_reduction_t = sycl::reducer<
-    R, std::plus<R>, 0, 1UL,
-    sycl::detail::ReductionIdentityContainer<R, std::plus<R>, false>>;
+
 
 void QueryKernel(int *lo_orderdate, int *lo_discount, int *lo_quantity,
                  int *lo_extendedprice, int lo_num_entries,
@@ -34,19 +31,16 @@ void QueryKernel(int *lo_orderdate, int *lo_discount, int *lo_quantity,
 }
 
 int main(int argc, char **argv) {
-  int num_partitions = 1;
-  int num_gpus = 0;
+  int target_device = 1;
+  
   int repetitions = 10;
   int modes = 1;
 
   int c;
-  while ((c = getopt(argc, argv, "p:g:r:m:")) != -1) {
+  while ((c = getopt(argc, argv, "t:r:m:")) != -1) {
     switch (c) {
-    case 'p':
-      num_partitions = atoi(optarg);
-      break;
-    case 'g':
-      num_gpus = atoi(optarg);
+    case 't':
+      target_device = atoi(optarg);
       break;
     case 'r':
       repetitions = atoi(optarg);
@@ -59,12 +53,23 @@ int main(int argc, char **argv) {
     }
   }
 
-  sycl::queue cpu_queue{
-      sycl::default_selector_v,
-      sycl::property_list{
-          sycl::property::queue::enable_profiling(),
-          sycl::ext::codeplay::experimental::property::queue::enable_fusion()}};
+  
 
+  sycl::queue q;
+  if (target_device == 1) {
+    q = sycl::queue(sycl::cpu_selector_v, sycl::property::queue::enable_profiling{});
+  } else if (target_device == 2) {
+    q = sycl::queue([](const sycl::device& d) { return d.is_gpu() && d.get_info<sycl::info::device::vendor>().find("NVIDIA") != std::string::npos ? 1 : -1; }, sycl::property::queue::enable_profiling{});
+  } else if (target_device == 3) {
+    q = sycl::queue([](const sycl::device& d) { return d.is_gpu() && d.get_info<sycl::info::device::vendor>().find("AMD") != std::string::npos ? 1 : -1; }, sycl::property::queue::enable_profiling{});
+  } else if (target_device == 4) {
+    q = sycl::queue([](const sycl::device& d) { return d.is_gpu() && d.get_info<sycl::info::device::vendor>().find("Intel") != std::string::npos ? 1 : -1; }, sycl::property::queue::enable_profiling{});
+  } else {
+    q = sycl::queue(sycl::default_selector_v, sycl::property::queue::enable_profiling{});
+  }
+  std::cout << "Running on device: " << q.get_device().get_info<sycl::info::device::name>() << "\n";
+  sycl::queue cpu_queue{sycl::cpu_selector_v, sycl::property::queue::enable_profiling{}};
+  
   ProbeData<int, unsigned long long> prob;
   prob.n_probes = 4;
   prob.h_lo_data = new int *[prob.n_probes];
@@ -94,15 +99,14 @@ int main(int argc, char **argv) {
         });
       });
     }
-    if (modes == 1 || modes == 2) {
+    if (modes == 1) {
       bool *selection_flags = sycl::malloc_shared<bool>(partition_len, queue);
       queue.memset(selection_flags, 0, partition_len * sizeof(bool));
       queue.wait();
-      sycl::ext::codeplay::experimental::fusion_wrapper fw{queue};
+      
       float total_time = 0;
       auto start = std::chrono::high_resolution_clock::now();
-      if (modes == 1)
-        fw.start_fusion();
+      
       event = queue.submit([&](sycl::handler &cgh) {
         int *probe_data_ct0 = probe_data[0];
         cgh.parallel_for(partition_len, [=](sycl::id<1> idx) {
@@ -110,7 +114,7 @@ int main(int argc, char **argv) {
                                  NONE, GT, 19930000);
         });
       });
-      if (modes == 2)
+      
         wait_and_add_time(event, total_time);
       event = queue.submit([&](sycl::handler &cgh) {
         int *probe_data_ct0 = probe_data[0];
@@ -119,7 +123,7 @@ int main(int argc, char **argv) {
                                  LT, 19940000);
         });
       });
-      if (modes == 2)
+      
         wait_and_add_time(event, total_time);
       event = queue.submit([&](sycl::handler &cgh) {
         int *probe_data_ct2 = probe_data[2];
@@ -128,7 +132,7 @@ int main(int argc, char **argv) {
                                  LT, 25);
         });
       });
-      if (modes == 2)
+      
         wait_and_add_time(event, total_time);
       event = queue.submit([&](sycl::handler &cgh) {
         int *probe_data_ct1 = probe_data[1];
@@ -137,7 +141,7 @@ int main(int argc, char **argv) {
                                  GE, 1);
         });
       });
-      if (modes == 2)
+      
         wait_and_add_time(event, total_time);
       event = queue.submit([&](sycl::handler &cgh) {
         int *probe_data_ct1 = probe_data[1];
@@ -146,7 +150,7 @@ int main(int argc, char **argv) {
                                  LE, 3);
         });
       });
-      if (modes == 2)
+      
         wait_and_add_time(event, total_time);
       event = queue.submit([&](sycl::handler &cgh) {
         int *probe_data_ct1 = probe_data[1];
@@ -165,11 +169,7 @@ int main(int argc, char **argv) {
         });
       });
 
-      if (modes == 1) {
-        event = fw.complete_fusion(
-            {sycl::ext::codeplay::experimental::property::no_barriers{}});
-        event.wait();
-      }
+      
       auto end = std::chrono::high_resolution_clock::now();
       std::chrono::duration<double> elapsed = end - start;
       event.wait();
@@ -187,8 +187,7 @@ int main(int argc, char **argv) {
   };
 
   cout << "Query: q11" << endl;
-  exchange_operator_wrapper<int, unsigned long long>(
-      NULL, 0, prob, num_gpus, num_partitions, repetitions, cpu_queue);
+  run_benchmark((BuildData<int>*)nullptr, 0, prob, q, repetitions, cpu_queue);
 
   return 0;
 }

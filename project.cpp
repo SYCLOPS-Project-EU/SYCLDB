@@ -1,10 +1,19 @@
 #include <getopt.h>
 #include <sycl/sycl.hpp>
 
-#include "exchange.hpp"
 #include "utils/generator.h"
 
 using namespace std;
+
+#include <chrono>
+
+void wait_and_measure_time(sycl::event &event, const std::string &name, float &elapsed) {
+  auto start = std::chrono::high_resolution_clock::now();
+  event.wait();
+  auto end = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double, std::milli> duration = end - start;
+  elapsed += duration.count();
+}
 
 sycl::event project(float *in1, float *in2, float *out, int num_items,
                     sycl::queue &q) {
@@ -28,24 +37,17 @@ sycl::event project(sycl::buffer<float, 1> &in1, sycl::buffer<float, 1> &in2,
 
 int main(int argc, char **argv) {
   int num_items = 1 << 22;
-  int buffers = 0;
-  int num_gpus = 1;
-  int num_partitions = 1;
+  int target_device = 1;
   int repetitions = 10;
+  
   int c;
-  while ((c = getopt(argc, argv, "n:b:g:p:r:")) != -1) {
+  while ((c = getopt(argc, argv, "n:t:r:")) != -1) {
     switch (c) {
     case 'n':
       num_items = atoi(optarg);
       break;
-    case 'b':
-      buffers = atoi(optarg);
-      break;
-    case 'g':
-      num_gpus = atoi(optarg);
-      break;
-    case 'p':
-      num_partitions = atoi(optarg);
+    case 't':
+      target_device = atoi(optarg);
       break;
     case 'r':
       repetitions = atoi(optarg);
@@ -55,45 +57,58 @@ int main(int argc, char **argv) {
     }
   }
 
+  sycl::queue q;
+  if (target_device == 1) { // CPU
+    q = sycl::queue(sycl::cpu_selector_v, sycl::property::queue::enable_profiling{});
+  } else if (target_device == 2) { // NVIDIA
+    q = sycl::queue([](const sycl::device& d) {
+      return d.is_gpu() && d.get_info<sycl::info::device::vendor>().find("NVIDIA") != std::string::npos ? 1 : -1;
+    }, sycl::property::queue::enable_profiling{});
+  } else if (target_device == 3) { // AMD
+    q = sycl::queue([](const sycl::device& d) {
+      return d.is_gpu() && d.get_info<sycl::info::device::vendor>().find("AMD") != std::string::npos ? 1 : -1;
+    }, sycl::property::queue::enable_profiling{});
+  } else if (target_device == 4) { // Intel
+    q = sycl::queue([](const sycl::device& d) {
+      return d.is_gpu() && d.get_info<sycl::info::device::vendor>().find("Intel") != std::string::npos ? 1 : -1;
+    }, sycl::property::queue::enable_profiling{});
+  } else {
+    q = sycl::queue(sycl::default_selector_v, sycl::property::queue::enable_profiling{});
+  }
+
+  cout << "Running on device: " << q.get_device().get_info<sycl::info::device::name>() << "\n";
+
   sycl::queue cpu_queue{
       sycl::cpu_selector_v,
       sycl::property_list{sycl::property::queue::enable_profiling()}};
 
-  ProbeData<float, float> prob;
-  prob.n_probes = 2;
-  prob.h_lo_data = new float *[prob.n_probes];
-  prob.h_lo_data[0] = NULL;
-  prob.h_lo_data[1] = NULL;
-  generateUniformCPU(prob.h_lo_data[0], prob.h_lo_data[1], num_items,
-                     cpu_queue);
-  prob.len_each_probe = num_items;
-  prob.res_size = num_items;
-  prob.res_array_cols = 1;
-  prob.res_idx = 0;
-  if (!buffers) {
-    prob.probe_function = [&](float **probe_data, int partition_len, float **,
-                              float *res, sycl::queue queue,
-                              sycl::event &event) {
-      event = project(probe_data[0], probe_data[1], res, partition_len, queue);
-    };
-    exchange_operator_wrapper<float, float>(
-        NULL, 0, prob, num_gpus, num_partitions, repetitions, cpu_queue);
-  } else {
-    sycl::buffer<float, 1> buf_in1{prob.h_lo_data[0], num_items};
-    sycl::buffer<float, 1> buf_in2{prob.h_lo_data[1], num_items};
-    sycl::buffer<float, 1> buf_out{num_items};
-    sycl::queue q =
-        (num_gpus >= 1)
-            ? sycl::queue{sycl::gpu_selector_v,
-                          sycl::property_list{
-                              sycl::property::queue::enable_profiling()}}
-            : cpu_queue;
-    for (int i = 0; i < repetitions; i++) {
-      sycl::event event = project(buf_in1, buf_in2, buf_out, num_items, q);
-      float elapsed = 0;
-      wait_and_measure_time(event, "Project", elapsed);
-    }
+  float *h_in1 = NULL;
+  float *h_in2 = NULL;
+  generateUniformCPU(h_in1, h_in2, num_items, cpu_queue);
+
+  float *d_in1 = sycl::malloc_device<float>(num_items, q);
+  float *d_in2 = sycl::malloc_device<float>(num_items, q);
+  float *d_out = sycl::malloc_device<float>(num_items, q);
+
+  q.memcpy(d_in1, h_in1, num_items * sizeof(float)).wait();
+  q.memcpy(d_in2, h_in2, num_items * sizeof(float)).wait();
+  
+  cout << "Query: project (standalone)" << endl;
+  
+  for (int r = 0; r < repetitions; r++) {
+    float elapsed_project = 0;
+    sycl::event ev_project = project(d_in1, d_in2, d_out, num_items, q);
+    wait_and_measure_time(ev_project, "Project", elapsed_project);
+    
+    cout << "Repetition " << r << " | Project time: " << elapsed_project << " ms" << endl;
   }
+
+  sycl::free(d_in1, q);
+  sycl::free(d_in2, q);
+  sycl::free(d_out, q);
+
+  sycl::free(h_in1, cpu_queue);
+  sycl::free(h_in2, cpu_queue);
 
   return 0;
 }

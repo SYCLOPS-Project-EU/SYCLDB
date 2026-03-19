@@ -1,4 +1,4 @@
-#include "../exchange.hpp"
+#include "../runner.hpp"
 #include "ssb_utils.hpp"
 
 #include <getopt.h>
@@ -125,19 +125,16 @@ void build_hashtable_d(int *filter_col, int *dim_key, int *dim_val,
 }
 
 int main(int argc, char **argv) {
-  int num_partitions = 1;
-  int num_gpus = 1;
+  int target_device = 1;
+  
   int repetitions = 10;
   int modes = 0;
 
   int c;
-  while ((c = getopt(argc, argv, "p:g:r:m:")) != -1) {
+  while ((c = getopt(argc, argv, "t:r:m:")) != -1) {
     switch (c) {
-    case 'p':
-      num_partitions = atoi(optarg);
-      break;
-    case 'g':
-      num_gpus = atoi(optarg);
+    case 't':
+      target_device = atoi(optarg);
       break;
     case 'r':
       repetitions = atoi(optarg);
@@ -151,11 +148,23 @@ int main(int argc, char **argv) {
   }
   std::cout << "MODE " << modes << std::endl;
 
-  sycl::queue cpu_queue{
-      sycl::default_selector_v,
-      sycl::property_list{sycl::property::queue::enable_profiling(),
-      sycl::ext::codeplay::experimental::property::queue::enable_fusion()}};
+  
 
+  sycl::queue q;
+  if (target_device == 1) {
+    q = sycl::queue(sycl::cpu_selector_v, sycl::property::queue::enable_profiling{});
+  } else if (target_device == 2) {
+    q = sycl::queue([](const sycl::device& d) { return d.is_gpu() && d.get_info<sycl::info::device::vendor>().find("NVIDIA") != std::string::npos ? 1 : -1; }, sycl::property::queue::enable_profiling{});
+  } else if (target_device == 3) {
+    q = sycl::queue([](const sycl::device& d) { return d.is_gpu() && d.get_info<sycl::info::device::vendor>().find("AMD") != std::string::npos ? 1 : -1; }, sycl::property::queue::enable_profiling{});
+  } else if (target_device == 4) {
+    q = sycl::queue([](const sycl::device& d) { return d.is_gpu() && d.get_info<sycl::info::device::vendor>().find("Intel") != std::string::npos ? 1 : -1; }, sycl::property::queue::enable_profiling{});
+  } else {
+    q = sycl::queue(sycl::default_selector_v, sycl::property::queue::enable_profiling{});
+  }
+  std::cout << "Running on device: " << q.get_device().get_info<sycl::info::device::name>() << "\n";
+  sycl::queue cpu_queue{sycl::cpu_selector_v, sycl::property::queue::enable_profiling{}};
+  
   BuildData<int> build_tables[3];
 
   build_tables[0].h_filter_col = NULL;
@@ -270,7 +279,7 @@ int main(int argc, char **argv) {
       });
     }
 
-    if (modes == 1 || modes == 2) {
+    if (modes == 1) {
       int *s_nation = sycl::malloc_shared<int>(partition_len, queue);
       int *c_nation = sycl::malloc_shared<int>(partition_len, queue);
       int *year = sycl::malloc_shared<int>(partition_len, queue);
@@ -284,11 +293,10 @@ int main(int argc, char **argv) {
       });
       queue.wait();
 
-      sycl::ext::codeplay::experimental::fusion_wrapper fw{queue};
+      
       float total_time = 0;
       auto start = std::chrono::high_resolution_clock::now();
-      if (modes == 1)
-        fw.start_fusion();
+      
       event = queue.submit([&](sycl::handler &cgh) {
         int *probe_data_ct0 = probe_data[0];
         int *hash_tables_ct9 = hash_tables[2];
@@ -300,7 +308,7 @@ int main(int argc, char **argv) {
                                   build_tables_num_slots_ct10, 19920101);
         });
       });
-      if (modes == 2)
+      
         wait_and_add_time(event, total_time);
       event = queue.submit([&](sycl::handler &cgh) {
         int *probe_data_ct2 = probe_data[2];
@@ -313,7 +321,7 @@ int main(int argc, char **argv) {
                                   build_tables_num_slots_ct6, 0);
         });
       });
-      if (modes == 2)
+      
         wait_and_add_time(event, total_time);
       event = queue.submit([&](sycl::handler &cgh) {
         int *probe_data_ct1 = probe_data[1];
@@ -326,7 +334,7 @@ int main(int argc, char **argv) {
                                   build_tables_num_slots_ct8, 0);
         });
       });
-      if (modes == 2)
+      
         wait_and_add_time(event, total_time);
       event = queue.submit([&](sycl::handler &cgh) {
         int *probe_data_ct3 = probe_data[3];
@@ -347,11 +355,7 @@ int main(int argc, char **argv) {
           }
         });
       });
-      if (modes == 1) {
-        event = fw.complete_fusion(
-            {sycl::ext::codeplay::experimental::property::no_barriers{}});
-        event.wait();
-      }
+      
       auto end = std::chrono::high_resolution_clock::now();
       std::chrono::duration<double> elapsed = end - start;
       event.wait();
@@ -369,8 +373,7 @@ int main(int argc, char **argv) {
   };
 
   cout << "Query: q34" << endl;
-  exchange_operator_wrapper<int, int, unsigned long long>(
-      build_tables, 3, prob, num_gpus, num_partitions, repetitions, cpu_queue);
+  run_benchmark(build_tables, 3, prob, q, repetitions, cpu_queue);
 
   return 0;
 }

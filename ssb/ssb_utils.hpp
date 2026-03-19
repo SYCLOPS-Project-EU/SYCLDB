@@ -9,48 +9,21 @@ using namespace std;
 
 #define SF 20
 
-#define BASE_PATH "test/ssb/data/"
+#define DATA_DIR "/media/ssb/s20_columnar/"
 
-#if SF == 1
-#define DATA_DIR BASE_PATH "s1_columnar/"
-#define LO_LEN 6001171
-#define P_LEN 200000
-#define S_LEN 2000
-#define C_LEN 30000
-#define D_LEN 2556
-#elif SF == 10
-#define DATA_DIR BASE_PATH "s10_columnar/"
-#define LO_LEN 59986214
-#define P_LEN 800000
-#define S_LEN 20000
-#define C_LEN 300000
-#define D_LEN 2556
-#elif SF == 20
-#define DATA_DIR BASE_PATH "s20_columnar/"
 #define LO_LEN 119994746
 #define P_LEN 1000000
 #define S_LEN 40000
 #define C_LEN 600000
 #define D_LEN 2556
-#else // SF == 100
-#define DATA_DIR BASE_PATH "s100_columnar/"
-#define LO_LEN 600043265
-#define P_LEN 1400000
-#define S_LEN 200000
-#define C_LEN 3000000
-#define D_LEN 2556
-
-#endif
 
 void wait_and_add_time(sycl::event e, float &total_time) {
+  auto start = std::chrono::high_resolution_clock::now();
   e.wait();
-  const auto start =
-      e.get_profiling_info<sycl::info::event_profiling::command_start>();
-  const auto end =
-      e.get_profiling_info<sycl::info::event_profiling::command_end>();
-  float time = (end - start) / 1e6;
-  total_time += time;
-  std::cout << "so far took: " << time << std::endl;
+  auto end = std::chrono::high_resolution_clock::now();
+  std::chrono::duration<double, std::milli> diff = end - start;
+  total_time += diff.count();
+  std::cout << "so far took: " << diff.count() << std::endl;
 }
 
 int index_of(string *arr, int len, string val) {
